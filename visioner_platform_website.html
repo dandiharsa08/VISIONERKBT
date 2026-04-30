@@ -1,0 +1,4048 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#f8f9ff;color:#1a1a2e;overflow-x:hidden}
+:root{
+  --blue:#3b82f6;--blue-dark:#2563eb;--blue-light:#dbeafe;
+  --purple:#8b5cf6;--purple-light:#ede9fe;
+  --green:#059669;--green-light:#ecfdf5;
+  --gray:#6b7280;--gray-light:#f9fafb;
+  --white:#ffffff;--border:#e5e7eb;
+  --text:#111827;--text-muted:#6b7280;
+  --radius:12px;--radius-lg:20px;
+}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* NAV */
+nav{background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;box-shadow:0 4px 12px rgba(37,99,235,0.3);transition:transform 0.3s}
+.logo-icon:hover{transform:scale(1.05)}
+.logo-text{font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+.nav-links{display:flex;gap:12px;align-items:center}
+.nav-links button{background:none;border:none;padding:8px 16px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;color:var(--text-muted);transition:all 0.3s}
+.nav-links button:hover{background:var(--blue-light);color:var(--blue);transform:translateY(-2px)}
+.nav-btn-primary{background:linear-gradient(135deg,var(--blue),var(--green))!important;color:var(--white)!important;border-radius:10px!important;box-shadow:0 4px 12px rgba(37,99,235,0.25)!important}
+.nav-btn-primary:hover{transform:translateY(-2px)!important;box-shadow:0 6px 16px rgba(37,99,235,0.35)!important}
+
+/* HERO */
+.hero{
+  background: linear-gradient(135deg, rgba(15,23,42,0.85), rgba(30,27,75,0.9)), url('Graduation.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* efek paralax */
+  padding:100px 5% 80px;
+  text-align:center;
+  position:relative;
+  overflow:hidden
+}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 60% 40%,rgba(124,58,237,0.15) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(37,99,235,0.15) 0%,transparent 50%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);color:#c4b5fd;padding:8px 20px;border-radius:100px;font-size:13px;font-weight:500;margin-bottom:24px;backdrop-filter:blur(10px)}
+.hero-badge span{width:8px;height:8px;background:#a78bfa;border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-size:clamp(36px,5vw,68px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 .accent{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(16px,2vw,20px);color:#94a3b8;max-width:600px;margin:0 auto 40px;line-height:1.7}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.3s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(37,99,235,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,99,235,0.4)}
+.btn-outline{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.2);padding:14px 32px;border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.3s;backdrop-filter:blur(10px)}
+.btn-outline:hover{background:rgba(255,255,255,0.15);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:60px;flex-wrap:wrap}
+.stat{text-align:center;background:rgba(255,255,255,0.05);padding:16px 24px;border-radius:16px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);transition:transform 0.3s}
+.stat:hover{transform:translateY(-4px)}
+.stat-num{font-size:32px;font-weight:800;color:#fff}
+.stat-label{font-size:13px;color:#64748b;margin-top:4px}
+
+/* SECTIONS */
+section{padding:80px 5%}
+.section-badge{display:inline-block;background:linear-gradient(135deg,var(--blue-light),var(--purple-light));color:var(--blue);padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;margin-bottom:16px;letter-spacing:0.5px}
+.section-title{font-size:clamp(28px,3.5vw,42px);font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-0.5px}
+.section-sub{font-size:17px;color:var(--text-muted);max-width:560px;line-height:1.7}
+.section-header{text-align:center;margin-bottom:60px}
+.section-header .section-sub{margin:12px auto 0}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
+.feature-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;transition:all 0.3s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--green));opacity:0;transition:opacity 0.3s}
+.feature-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(37,99,235,0.12);border-color:var(--blue)}
+.feature-card:hover::before{opacity:1}
+.feature-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px}
+.fi-blue{background:var(--blue-light)}
+.fi-purple{background:var(--purple-light)}
+.fi-green{background:var(--green-light)}
+.feature-card h3{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--text)}
+.feature-card p{font-size:14px;color:var(--text-muted);line-height:1.7}
+
+/* STEPS */
+.steps-bg{background:linear-gradient(135deg,#f8f9ff,#eff6ff)}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;position:relative}
+.step{text-align:center;padding:32px 24px;background:#fff;border-radius:20px;transition:all 0.3s}
+.step:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+.step-num{width:60px;height:60px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#fff;margin:0 auto 20px;box-shadow:0 6px 16px rgba(37,99,235,0.3)}
+.step h3{font-size:17px;font-weight:700;margin-bottom:10px}
+.step p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* PROJECT CARDS */
+.projects-section{background:#fff}
+.filter-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.filter-btn{padding:10px 22px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all 0.3s}
+.filter-btn.active,.filter-btn:hover{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border-color:transparent;transform:translateY(-2px)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px}
+.project-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;transition:all 0.3s;cursor:pointer}
+.project-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,0.1);border-color:var(--blue)}
+.company-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.company-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.company-name{font-size:13px;color:var(--text-muted);font-weight:500}
+.project-title{font-size:17px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.project-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.tag{padding:4px 12px;border-radius:8px;font-size:11px;font-weight:600;letter-spacing:0.3px}
+.tag-blue{background:var(--blue-light);color:var(--blue)}
+.tag-purple{background:var(--purple-light);color:var(--purple)}
+.tag-green{background:var(--green-light);color:var(--green)}
+.skills-row{display:flex;gap:8px;flex-wrap:wrap}
+.skill-pill{padding:4px 12px;background:var(--gray-light);border-radius:8px;font-size:11px;color:var(--gray);font-weight:500}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.apply-mini{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border:none;padding:8px 20px;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.3s}
+.apply-mini:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(37,99,235,0.3)}
+
+/* TESTIMONIALS */
+.testimonials-bg{background:linear-gradient(135deg,#1e40af,#1e3a8a)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.testi-card{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-lg);padding:32px;transition:all 0.3s;backdrop-filter:blur(10px)}
+.testi-card:hover{background:rgba(255,255,255,0.12);transform:translateY(-6px)}
+.testi-quote{color:#e2e8f0;font-size:15px;line-height:1.7;margin-bottom:20px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.testi-name{font-size:14px;font-weight:600;color:#f1f5f9}
+.testi-role{font-size:12px;color:#64748b}
+.stars{color:#fbbf24;font-size:14px;margin-bottom:12px}
+
+/* DETAIL PAGE */
+.detail-hero{background:linear-gradient(135deg,#1e40af,#1e3a8a)}
+.breadcrumb{font-size:13px;color:#64748b;margin-bottom:20px;cursor:pointer;transition:color 0.3s}
+.breadcrumb:hover{color:#93c5fd}
+.breadcrumb span{color:#93c5fd}
+.detail-layout{display:grid;grid-template-columns:1fr 360px;gap:32px;padding:40px 5%;max-width:1200px;margin:0 auto}
+.detail-main{}
+.detail-sidebar{}
+.detail-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:24px;transition:all 0.3s}
+.detail-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.detail-card h3{font-size:17px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.requirement-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.requirement-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-muted);line-height:1.5}
+.req-check{width:20px;height:20px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--green);flex-shrink:0;margin-top:1px}
+.benefit-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.benefit-item{background:var(--gray-light);border-radius:12px;padding:16px;transition:all 0.3s}
+.benefit-item:hover{transform:translateY(-2px);background:#fff;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.benefit-item h4{font-size:13px;font-weight:600;margin-bottom:6px}
+.benefit-item p{font-size:12px;color:var(--text-muted)}
+.apply-card{background:linear-gradient(135deg,var(--blue),var(--green));border-radius:var(--radius-lg);padding:32px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.apply-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);pointer-events:none}
+.apply-card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.apply-card p{font-size:13px;opacity:0.9;margin-bottom:24px}
+.btn-apply{background:#fff;color:var(--blue);border:none;width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s}
+.btn-apply:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+
+/* DASHBOARD */
+.dashboard-layout{display:grid;grid-template-columns:260px 1fr;min-height:100vh;background:#f8f9ff}
+/* DASHBOARD INTERAKTIF - TAMBAHKAN CSS INI */
+.dashboard-tab-content {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Card statistik interaktif */
+.dash-stat {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dash-stat:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(37,99,235,0.15);
+    border-color: var(--blue);
+}
+
+.dash-stat:active {
+    transform: translateY(-2px);
+}
+
+/* Progress card */
+.ongoing-card {
+    cursor: pointer;
+}
+
+.ongoing-card:hover .progress-fill {
+    background: linear-gradient(90deg, var(--blue-dark), var(--purple));
+}
+
+/* Tombol aksi */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    color: #fff;
+}
+
+.action-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37,99,235,0.3);
+}
+
+.action-btn-secondary {
+    background: var(--gray-light);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.action-btn-secondary:hover {
+    background: var(--border);
+    transform: translateY(-2px);
+}
+
+/* Modal untuk detail project */
+.modal-detail {
+    max-width: 500px;
+}
+
+.modal-detail .detail-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-detail .detail-label {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.modal-detail .detail-value {
+    color: var(--text-muted);
+}
+
+/* Achievement badges */
+.achievement-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--gray-light);
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.achievement-badge:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, var(--blue-light), var(--purple-light));
+}
+
+.achievement-badge.locked {
+    opacity: 0.5;
+    filter: grayscale(0.3);
+}
+
+/* Edit profile form */
+.profile-form {
+    max-width: 600px;
+}
+
+.profile-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 768px) {
+    .profile-form .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Skill tags di edit profile */
+.skill-tag-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    min-height: 60px;
+}
+
+.skill-tag-item {
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-tag-item button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--blue);
+    font-size: 14px;
+}
+
+.skill-input-field {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 100px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Certificate cards */
+.certificate-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.certificate-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    border-color: var(--blue);
+}
+
+.certificate-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.certificate-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.certificate-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.btn-download {
+    margin-top: 12px;
+    padding: 6px 12px;
+    background: var(--blue-light);
+    color: var(--blue);
+    border: none;
+    border-radius: 8px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-download:hover {
+    background: var(--blue);
+    color: #fff;
+}
+.sidebar-nav{background:#fff;border-right:1px solid var(--border);padding:28px 20px;display:flex;flex-direction:column;gap:6px;position:sticky;top:70px;height:calc(100vh - 70px)}
+.sidebar-item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all 0.3s}
+.sidebar-item:hover,.sidebar-item.active{background:linear-gradient(135deg,var(--blue-light),var(--purple-light));color:var(--blue);transform:translateX(4px)}
+.sidebar-item.active{font-weight:600;color:var(--blue)}
+.dash-content{padding:36px}
+.welcome-card{background:linear-gradient(135deg,var(--blue),var(--green));border-radius:var(--radius-lg);padding:32px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden}
+.welcome-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);pointer-events:none}
+.welcome-card h2{font-size:24px;font-weight:700;margin-bottom:8px}
+.welcome-card p{font-size:14px;opacity:0.9}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-bottom:28px}
+.dash-stat{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;transition:all 0.3s}
+.dash-stat:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.08);border-color:var(--blue)}
+.dash-stat-num{font-size:32px;font-weight:800;color:var(--blue)}
+.dash-stat-label{font-size:13px;color:var(--text-muted);margin-top:6px}
+.ongoing-grid{display:grid;gap:16px}
+.ongoing-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;display:flex;align-items:center;gap:20px;transition:all 0.3s}
+.ongoing-card:hover{border-color:var(--blue);transform:translateX(4px);box-shadow:0 4px 20px rgba(37,99,235,0.1)}
+.ongoing-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.ongoing-info{flex:1}
+.ongoing-title{font-size:15px;font-weight:600;margin-bottom:4px}
+.ongoing-company{font-size:12px;color:var(--text-muted)}
+.progress-bar{background:var(--border);border-radius:100px;height:8px;margin-top:10px;overflow:hidden}
+.progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),var(--green));transition:width 1s ease}
+.status-badge{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600}
+.status-ongoing{background:#fef3c7;color:#d97706}
+.status-done{background:var(--green-light);color:var(--green)}
+
+/* PORTFOLIO */
+.portfolio-header {
+    background: linear-gradient(135deg, rgba(15,23,42,0.8), rgba(30,27,75,0.85)), url('Minat.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 80px 5% 60px;
+    text-align: center;
+    position: relative;
+}
+
+.portfolio-header h1 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.portfolio-header p {
+    color: #94a3b8;
+    margin-bottom: 24px;
+}
+
+.portfolio-header .section-badge {
+    display: inline-block;
+    background: rgba(124,58,237,0.2);
+    color: #c4b5fd;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px;padding:40px 5%}
+.portfolio-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all 0.3s}
+.portfolio-card:hover{transform:translateY(-8px);box-shadow:0 24px 64px rgba(0,0,0,0.12)}
+/* Perbaikan portfolio thumb untuk logo gambar */
+.portfolio-thumb {
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9ff, #f0f4ff);
+    padding: 40px;
+}
+
+.portfolio-thumb img {
+    max-width: 500px;
+    max-height: 500px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover .portfolio-thumb img {
+    transform: scale(1.1);
+}
+
+/* Styling untuk fallback jika gambar tidak ada */
+.portfolio-thumb .logo-fallback {
+    width: 220px;
+    height: 220px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+}
+.portfolio-body{padding:24px}
+.portfolio-title{font-size:17px;font-weight:700;margin-bottom:8px}
+.portfolio-company{font-size:13px;color:var(--text-muted);margin-bottom:12px}
+.feedback-box{background:#f8f9ff;border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px;font-size:13px;color:var(--text-muted);font-style:italic;line-height:1.6;margin-top:12px}
+.rating-row{display:flex;align-items:center;gap:8px;margin-top:12px}
+.rating-stars{color:#fbbf24;font-size:16px}
+.rating-text{font-size:13px;font-weight:600;color:var(--text)}
+
+/* FOOTER */
+footer{background:#0f172a;color:#94a3b8;padding:60px 5% 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.footer-brand .logo{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.footer-brand .logo-icon{width:60px;height:60px;font-size:16px}
+.footer-brand .logo-text{font-size:20px;background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.footer-brand p{font-size:14px;line-height:1.7;max-width:260px}
+.footer-col h4{font-size:14px;font-weight:600;color:#e2e8f0;margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul li{font-size:13px;cursor:pointer;transition:all 0.3s}
+.footer-col ul li:hover{color:#e2e8f0;transform:translateX(4px)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;display:flex;align-items:center;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:16px}
+
+/* AUTH MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);display:none}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:24px;padding:48px;width:100%;max-width:460px;position:relative;animation:fadeIn 0.3s ease}
+.modal-close{position:absolute;top:20px;right:20px;background:var(--gray-light);border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;color:var(--text-muted);transition:all 0.3s}
+.modal-close:hover{background:var(--border);transform:rotate(90deg)}
+.modal h2{font-size:28px;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.modal p{font-size:14px;color:var(--text-muted);margin-bottom:32px}
+/* Styling untuk form registrasi yang panjang */
+.modal {
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 32px;
+}
+
+.modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: var(--gray-light);
+    border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: var(--blue);
+    border-radius: 10px;
+}
+
+/* Tambahkan CSS untuk select di modal */
+.modal select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.modal select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+}
+.form-group small {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: block;
+}
+
+select {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.form-group input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:12px;font-size:14px;outline:none;transition:all 0.3s;font-family:'Inter',sans-serif}
+.form-group input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,0.1)}
+.btn-full{width:100%;padding:14px;background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.3s;margin-top:8px}
+.btn-full:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(37,99,235,0.3)}
+.auth-switch{text-align:center;margin-top:20px;font-size:13px;color:var(--text-muted)}
+.auth-switch span{color:var(--blue);cursor:pointer;font-weight:600;transition:color 0.3s}
+.auth-switch span:hover{color:var(--purple)}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn 0.5s ease forwards}
+
+/* EXPLORE SEARCH */
+.explore-hero {
+    background: linear-gradient(135deg, rgba(15,23,42,0.8), rgba(30,27,75,0.85)), url('Minat.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 80px 5% 70px;
+    text-align: center;
+    position: relative;
+}
+
+.explore-hero .section-badge {
+    display: inline-block;
+    background: rgba(124,58,237,0.2);
+    color: #c4b5fd;
+    padding: 6px 18px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.explore-hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.explore-hero p {
+    color: #94a3b8;
+    margin-bottom: 32px;
+    font-size: 16px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.explore-hero .search-bar {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 60px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+}
+
+.explore-hero .search-bar input {
+    flex: 1;
+    padding: 16px 24px;
+    border: none;
+    font-size: 15px;
+    outline: none;
+}
+
+.explore-hero .search-bar button {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    color: #fff;
+    border: none;
+    padding: 16px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* Perbaikan filter panel */
+.explore-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    padding: 40px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.filter-panel {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    height: fit-content;
+    position: sticky;
+    top: 90px;
+}
+
+.filter-panel h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text);
+}
+
+.filter-group {
+    margin-bottom: 28px;
+}
+
+.filter-group h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+}
+
+.filter-option:hover {
+    color: var(--blue);
+}
+
+.filter-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--blue);
+    cursor: pointer;
+}
+
+/* Filter row buttons */
+.filter-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    border-radius: 40px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    color: #fff;
+    border-color: transparent;
+}
+
+/* Projects grid di explore */
+#explore-projects .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+.search-bar{background:#fff;border-radius:16px;display:flex;gap:0;max-width:600px;margin:0 auto;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.2)}
+.search-bar input{flex:1;padding:16px 20px;border:none;font-size:15px;outline:none;font-family:'Inter',sans-serif;color:var(--text)}
+.search-bar button{background:linear-gradient(135deg,var(--blue),var(--green));color:#fff;border:none;padding:16px 28px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s}
+.search-bar button:hover{transform:scale(1.02)}
+.explore-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;padding:40px 5%}
+.filter-panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;height:fit-content;position:sticky;top:90px}
+.filter-panel h3{font-size:16px;font-weight:700;margin-bottom:20px}
+.filter-group{margin-bottom:28px}
+.filter-group h4{font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px}
+.filter-option{display:flex;align-items:center;gap:10px;padding:8px 0;cursor:pointer;font-size:13px;color:var(--text-muted);transition:all 0.3s}
+.filter-option:hover{color:var(--blue);transform:translateX(4px)}
+.filter-option input[type=checkbox]{accent-color:var(--blue);width:16px;height:16px}
+
+/* INTEREST PAGE STYLES */
+.interest-hero {
+    background: linear-gradient(135deg, rgba(30,64,175,0.85), rgba(30,58,138,0.9)), url('Minat.jpeg');
+    background-size: cover;
+    background-position: center 30%; /* atur posisi gambar */
+    padding: 80px 5% 60px;
+    text-align: center;
+    position: relative;
+}
+
+.interest-hero .section-badge {
+    display: inline-block;
+    background: rgba(124,58,237,0.2);
+    color: #c4b5fd;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.interest-hero h1 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.interest-hero p {
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* PERBAIKAN INTEREST CONTAINER */
+.interest-container {
+    max-width: 800px;
+    margin: -40px auto 60px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.interest-container {
+    max-width: 800px;
+    margin: -40px auto 60px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.interest-progress {
+    margin-bottom: 40px;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.step-indicator {
+    width: 44px;
+    height: 44px;
+    background: #e5e7eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #6b7280;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 2;
+    font-size: 16px;
+}
+
+.step-indicator.active {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+.step-indicator.completed {
+    background: var(--green);
+    color: #fff;
+}
+
+.progress-bar-line {
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    margin-top: -30px;
+    position: relative;
+}
+
+.progress-fill-line {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s;
+}
+
+.question-container {
+    min-height: 400px;
+}
+
+.question-card {
+    animation: fadeIn 0.5s ease;
+}
+
+.question-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 32px;
+    line-height: 1.4;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.option-btn {
+    padding: 16px 24px;
+    background: var(--gray-light);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+}
+
+.option-btn:hover {
+    border-color: var(--blue);
+    background: var(--blue-light);
+    transform: translateY(-2px);
+}
+
+.option-btn.selected {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+.question-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 16px;
+}
+
+.btn-prev, .btn-next, .btn-submit {
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+}
+
+.btn-prev {
+    background: var(--gray-light);
+    color: var(--text-muted);
+}
+
+.btn-prev:hover {
+    background: var(--border);
+    transform: translateX(-2px);
+}
+
+.btn-next {
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    color: #fff;
+    margin-left: auto;
+}
+
+.btn-next:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    color: #fff;
+    margin-left: auto;
+}
+
+.btn-submit:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 12px rgba(5,150,105,0.3);
+}
+
+/* Result Section */
+.result-section {
+    padding: 60px 5%;
+    background: #f8f9ff;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.result-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+}
+
+.result-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border-color: var(--blue);
+}
+
+.result-card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.result-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.result-card-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.skills-tag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.skill-tag {
+    padding: 6px 12px;
+    background: var(--blue-light);
+    color: var(--blue);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.result-action {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.result-action .btn-outline {
+    background: transparent;
+    color: var(--blue);
+    border: 2px solid var(--blue);
+}
+
+.result-action .btn-outline:hover {
+    background: var(--blue);
+    color: #fff;
+}
+
+/* FOR CAMPUS PAGE STYLES */
+/* Pakai gambar dari folder */
+.campus-hero {
+    background: linear-gradient(135deg, rgba(30,64,175,0.6), rgba(30,58,138,0.7)), url('logo kampus.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* efek paralax saat scroll */
+    background-repeat: no-repeat;
+    padding: 60px 5% 80px;
+    position: relative;
+}
+
+.campus-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="50" cy="50" r="40" fill="rgba(124,58,237,0.05)"/><circle cx="150" cy="120" r="60" fill="rgba(37,99,235,0.05)"/></svg>');
+    background-size: cover;
+}
+
+.campus-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.campus-hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: hsl(0, 0%, 97%);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.campus-cta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+
+.guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 16px 32px;
+    border-radius: 100px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.guarantee-icon {
+    font-size: 32px;
+}
+
+.guarantee-text {
+    text-align: left;
+}
+
+.guarantee-text strong {
+    display: block;
+    color: #fff;
+    font-size: 16px;
+}
+
+.guarantee-text span {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* Features Program */
+.features-program {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+}
+
+.program-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px;
+    text-align: center;
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+}
+
+.program-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(37,99,235,0.12);
+    border-color: var(--blue);
+}
+
+.program-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--blue-light), var(--purple-light));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+}
+
+.program-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.program-card p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.btn-detail {
+    background: none;
+    border: none;
+    color: var(--blue);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-detail:hover {
+    transform: translateX(4px);
+    color: var(--purple);
+}
+
+/* Timeline */
+.timeline-section {
+    background: linear-gradient(135deg, #f8f9ff, #eff6ff);
+}
+
+.timeline-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 20px 0;
+}
+
+.timeline-track {
+    display: flex;
+    gap: 0;
+    min-width: 800px;
+}
+
+.timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 0 20px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    z-index: 1;
+}
+
+.timeline-item:first-child::before {
+    left: 50%;
+}
+
+.timeline-item:last-child::before {
+    right: 50%;
+}
+
+.timeline-time {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 12px;
+}
+
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--blue);
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    position: relative;
+    z-index: 2;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 3px var(--blue-light);
+}
+
+.timeline-content {
+    background: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.timeline-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.timeline-content p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+/* Curriculum */
+.curriculum-section {
+    background: #fff;
+}
+
+.curriculum-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.curriculum-phase {
+    text-align: center;
+    padding: 24px;
+    background: var(--gray-light);
+    border-radius: 16px;
+    transition: all 0.3s;
+}
+
+.curriculum-phase:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(135deg, var(--blue-light), var(--purple-light));
+}
+
+.phase-number {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 auto 12px;
+}
+
+.curriculum-phase h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.curriculum-phase p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.curriculum-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--gray-light);
+    border-radius: 12px;
+}
+
+.detail-icon {
+    font-size: 24px;
+}
+
+/* Partners */
+.partners-section {
+    background: linear-gradient(135deg, #f8f9ff, #eff6ff);
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.partner-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+}
+
+.partner-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    border-color: var(--blue);
+}
+
+.partner-logo {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.partner-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.partner-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.partner-cta {
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, var(--blue), var(--green));
+    border-radius: 24px;
+    color: #fff;
+}
+
+.partner-cta p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.partner-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.partner-buttons .btn-outline {
+    background: transparent;
+    border-color: #fff;
+    color: #fff;
+}
+
+.partner-buttons .btn-outline:hover {
+    background: #fff;
+    color: var(--blue);
+}
+
+/* Testimonials Campus */
+.testimonials-campus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.testimonial-campus-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s;
+    border: 1px solid var(--border);
+}
+
+.testimonial-campus-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.testimonial-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.testimonial-info p {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.testimonial-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 12px;
+}
+
+.testimonial-stars {
+    color: #fbbf24;
+    font-size: 14px;
+}
+
+.btn-load-more {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 32px;
+    background: transparent;
+    border: 2px solid var(--blue);
+    color: var(--blue);
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-load-more:hover {
+    background: var(--blue);
+    color: #fff;
+}
+
+/* FAQ */
+.faq-section {
+    background: #fff;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.faq-question:hover {
+    color: var(--blue);
+}
+
+.faq-icon {
+    font-size: 20px;
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: var(--text-muted);
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px;
+    padding-bottom: 20px;
+}
+
+.faq-footer {
+    text-align: center;
+}
+
+/* Modal Campus */
+/* GANTI CSS MODAL AGAR BISA DISCROLL */
+.modal-overlay.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 85vh; /* tinggi maksimal 85% viewport */
+    overflow-y: auto; /* enable scroll vertical */
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Styling scrollbar biar kelihatan bagus */
+.modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: var(--gray-light);
+    border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background: var(--blue);
+    border-radius: 10px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background: var(--blue-dark);
+}
+
+/* Untuk layar kecil */
+@media (max-width: 600px) {
+    .modal {
+        max-width: 95%;
+        max-height: 90vh;
+        padding: 24px;
+    }
+}
+
+@media(max-width: 768px) {
+    .timeline-track {
+        min-width: 600px;
+    }
+    
+    .partner-buttons {
+        flex-direction: column;
+    }
+    
+    .curriculum-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 768px) {
+    .interest-container {
+        padding: 24px;
+        margin: -20px 20px 40px;
+    }
+    
+    .question-text {
+        font-size: 20px;
+    }
+    
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-header {
+        padding: 60px 5% 40px;
+    }
+    
+    .interest-hero {
+        padding: 60px 5% 40px;
+    }
+    
+    .interest-container {
+        padding: 24px;
+        margin: -20px 20px 40px;
+    }
+}
+
+@media(max-width:768px){
+  .detail-layout,.dashboard-layout,.explore-layout,.footer-grid{grid-template-columns:1fr}
+  .sidebar-nav{display:none}
+  .dashboard-layout{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-stats{gap:16px}
+  .stat{padding:12px 16px}
+}
+
+@media (max-width: 992px) {
+    .explore-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-panel {
+        position: static;
+        margin-bottom: 24px;
+    }
+    
+    .filter-row {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .explore-hero {
+        padding: 60px 5% 50px;
+    }
+    
+    .explore-hero .search-bar {
+        border-radius: 16px;
+        flex-direction: column;
+    }
+    
+    .explore-hero .search-bar button {
+        padding: 14px;
+        border-radius: 0 0 16px 16px;
+    }
+    
+    .filter-row {
+        gap: 8px;
+    }
+    
+    .filter-btn {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+    
+    #explore-projects .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV dengan Logo yang sudah diperbaiki -->
+<nav>
+  <div class="logo" onclick="showPage('home')">
+    <img src="Visioner.jpeg" alt="Logo" class="logo-img">
+    <div class="logo-text">VISIONER</div>
+  </div>
+  <div class="nav-links">
+    <button onclick="showPage('interest')">Minat & Bakat</button>
+    <button onclick="showPage('campus')">For Campus</button>
+    <button onclick="showPage('explore')">Explore Project</button>
+    <button onclick="showPage('dashboard')">Dashboard</button>
+    <button onclick="showPage('portfolio')">Portfolio</button>
+    <button class="nav-btn-primary" onclick="openModal('login')">Masuk</button>
+  </div>
+</nav>
+
+<!-- ============ HOME PAGE ============ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge"><span></span> Platform #1 Project-Based Internship</div>
+    <h1>Bangun Kariermu Lewat<br><span class="accent">Project Nyata</span></h1>
+    <p>Bukan sekadar magang biasa. Di VISIONER, kamu mengerjakan project riil dari perusahaan terkemuka, membangun portofolio yang kuat, dan siap bersaing di dunia kerja.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="showPage('explore')">🚀 Mulai Sekarang</button>
+      <button class="btn-outline" onclick="showPage('explore')">Lihat Project →</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">2,400+</div><div class="stat-label">Mahasiswa Aktif</div></div>
+      <div class="stat"><div class="stat-num">380+</div><div class="stat-label">Project Tersedia</div></div>
+      <div class="stat"><div class="stat-num">150+</div><div class="stat-label">Perusahaan Mitra</div></div>
+      <div class="stat"><div class="stat-num">94%</div><div class="stat-label">Berhasil Masuk Kerja</div></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="section-header">
+      <div class="section-badge">✦ MENGAPA VISIONER</div>
+      <div class="section-title">Semua yang Kamu Butuhkan<br>untuk Sukses</div>
+      <div class="section-sub">Platform lengkap yang menghubungkan mahasiswa berbakat dengan perusahaan yang mencari talent muda berpotensi.</div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-blue">🎯</div>
+        <h3>Project Berbasis Industri</h3>
+        <p>Kerjakan project nyata dari perusahaan startup hingga korporat besar yang relevan dengan industri masa depan.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-purple">📁</div>
+        <h3>Portofolio Profesional</h3>
+        <p>Setiap project yang kamu selesaikan otomatis masuk ke portofolio terverifikasi yang bisa dibagikan ke rekruter.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-green">🌍</div>
+        <h3>Internship Internasional</h3>
+        <p>Akses project dari perusahaan global tanpa batas geografis. Kerjakan dari mana saja, kapan saja.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-blue">🏅</div>
+        <h3>Sertifikat Terverifikasi</h3>
+        <p>Dapatkan sertifikat yang diakui industri setelah menyelesaikan project dengan penilaian langsung dari perusahaan.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-purple">💬</div>
+        <h3>Mentoring dari Expert</h3>
+        <p>Dibimbing langsung oleh profesional berpengalaman di bidangnya. Belajar dari yang sudah berhasil.</p>
+      </div>
+      <div class="feature-card fade-in">
+        <div class="feature-icon fi-green">📈</div>
+        <h3>Tracking Progress</h3>
+        <p>Pantau perkembangan skill dan project-mu secara real-time dengan dashboard yang intuitif dan informatif.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps-bg">
+    <div class="section-header">
+      <div class="section-badge">✦ CARA KERJA</div>
+      <div class="section-title">3 Langkah Menuju Karier Impian</div>
+      <div class="section-sub">Proses yang sederhana namun berdampak besar untuk masa depanmu.</div>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Daftar & Lengkapi Profil</h3>
+        <p>Buat akun gratis, isi profil dengan skill dan minatmu. Sistem kami akan menyesuaikan project yang cocok untukmu.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Pilih & Apply Project</h3>
+        <p>Jelajahi ratusan project dari berbagai industri. Filter berdasarkan skill, durasi, dan minat karier.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Kerjakan & Dapatkan Feedback</h3>
+        <p>Selesaikan project nyata, dapat feedback langsung dari perusahaan, dan masukkan ke portofolio profesionalmu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECTS -->
+  <section class="projects-section">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:20px">
+      <div>
+        <div class="section-badge">✦ FEATURED</div>
+        <div class="section-title" style="margin-top:8px">Project Populer Minggu Ini</div>
+      </div>
+      <button class="btn-primary" onclick="showPage('explore')" style="flex-shrink:0">Lihat Semua →</button>
+    </div>
+    <div class="projects-grid" id="home-projects"></div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-bg">
+    <div class="section-header">
+      <div class="section-badge" style="background:rgba(124,58,237,0.2);color:#c4b5fd">✦ TESTIMONI</div>
+      <div class="section-title" style="color:#fff">Cerita Sukses dari Mereka</div>
+      <div class="section-sub" style="color:#94a3b8;margin:12px auto 0">Ribuan mahasiswa sudah membuktikan kekuatan project-based internship.</div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"Setelah menyelesaikan 3 project di VISIONER, saya langsung dapat tawaran kerja dari startup Series B. Portofolio saya jadi pembeda utama!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)">RA</div>
+          <div><div class="testi-name">Ferdian Dhanino Rachmawan</div><div class="testi-role">UI/UX Designer · Tokopedia</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"VISIONER bukan cuma platform magang. Ini komunitas. Saya belajar lebih banyak dari 2 bulan project daripada 1 tahun kuliah teori."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#059669,#0891b2)">SP</div>
+          <div><div class="testi-name">Sinta Permata</div><div class="testi-role">Data Analyst · Gojek</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"Sebagai fresh graduate tanpa pengalaman kerja, VISIONER jadi penyelamat. 6 project di portofolio saya bikin HRD langsung tertarik."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:linear-gradient(135deg,#dc2626,#ea580c)">MF</div>
+          <div><div class="testi-name">Muhammad Faiz</div><div class="testi-role">Backend Developer · Traveloka</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section style="text-align:center;background:var(--blue-light)">
+    <div class="section-badge">🎓 MULAI GRATIS</div>
+    <div class="section-title" style="margin-top:12px">Siap Memulai Perjalananmu?</div>
+    <div class="section-sub" style="margin:12px auto 32px">Bergabung dengan 2,400+ mahasiswa yang sudah lebih siap menghadapi dunia kerja.</div>
+    <button class="btn-primary" onclick="openModal('register')" style="font-size:16px;padding:16px 36px">Daftar Gratis Sekarang 🚀</button>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:16px">Tidak perlu kartu kredit. Gratis selamanya untuk mahasiswa.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" onclick="showPage('home')">
+          <img src="Visioner.jpeg" alt="Logo" class="logo-img">
+          <div class="logo-text">VISIONER</div>
+        </div>
+        <p>Platform digital marketplace internship berbasis project untuk mahasiswa. Belajar dengan praktik nyata, bukan hanya teori.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li onclick="showPage('explore')">Explore Project</li>
+          <li onclick="showPage('dashboard')">Dashboard</li>
+          <li onclick="showPage('portfolio')">Portfolio</li>
+          <li>Leaderboard</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <ul>
+          <li>Tentang Kami</li>
+          <li>Mitra Perusahaan</li>
+          <li>Karir</li>
+          <li>Blog</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li>FAQ</li>
+          <li>Hubungi Kami</li>
+          <li>Kebijakan Privasi</li>
+          <li>Syarat & Ketentuan</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 VISIONER. Semua hak dilindungi.</span>
+      <span>Made with ❤️ for Indonesian Students</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ============ EXPLORE PAGE ============ -->
+<div id="page-explore" class="page">
+  <div class="explore-hero">
+    <div class="section-badge" style="background:rgba(124,58,237,0.2);color:#c4b5fd;margin-bottom:20px">✦ 380+ PROJECT TERSEDIA</div>
+    <h1 style="font-size:clamp(28px,4vw,48px);font-weight:800;margin-bottom:16px">Temukan Project<br>yang Tepat Untukmu</h1>
+    <p style="color:#94a3b8;margin-bottom:32px">Filter berdasarkan skill, industri, dan durasi yang sesuai jadwal kuliahmu.</p>
+    <div class="search-bar">
+      <input type="text" placeholder="Cari project, perusahaan, atau skill...">
+      <button>🔍 Cari</button>
+    </div>
+  </div>
+  <div class="explore-layout">
+    <div class="filter-panel">
+      <h3>Filter Project</h3>
+      <div class="filter-group">
+        <h4>Kategori</h4>
+        <label class="filter-option"><input type="checkbox" checked> Teknologi</label>
+        <label class="filter-option"><input type="checkbox"> Desain</label>
+        <label class="filter-option"><input type="checkbox"> Marketing</label>
+        <label class="filter-option"><input type="checkbox"> Data Science</label>
+        <label class="filter-option"><input type="checkbox"> Business</label>
+        <label class="filter-option"><input type="checkbox"> Content</label>
+      </div>
+      <div class="filter-group">
+        <h4>Durasi</h4>
+        <label class="filter-option"><input type="checkbox" checked> 1 Bulan</label>
+        <label class="filter-option"><input type="checkbox"> 2 Bulan</label>
+        <label class="filter-option"><input type="checkbox"> 3 Bulan</label>
+        <label class="filter-option"><input type="checkbox"> 3+ Bulan</label>
+      </div>
+      <div class="filter-group">
+        <h4>Level</h4>
+        <label class="filter-option"><input type="checkbox"> Beginner</label>
+        <label class="filter-option"><input type="checkbox" checked> Intermediate</label>
+        <label class="filter-option"><input type="checkbox"> Advanced</label>
+      </div>
+      <button class="btn-full" style="margin-top:0">Terapkan Filter</button>
+    </div>
+    <div>
+      <div class="filter-row">
+        <button class="filter-btn active">Semua</button>
+        <button class="filter-btn">Teknologi</button>
+        <button class="filter-btn">Desain</button>
+        <button class="filter-btn">Marketing</button>
+        <button class="filter-btn">Data</button>
+        <button class="filter-btn">Business</button>
+      </div>
+      <div class="projects-grid" id="explore-projects"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DETAIL PAGE ============ -->
+<div id="page-detail" class="page">
+  <div class="detail-hero">
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="breadcrumb" onclick="showPage('explore')">← Kembali ke <span>Explore Project</span></div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+        <div class="company-logo" style="width:52px;height:52px;border-radius:12px;font-size:20px;background:linear-gradient(135deg,#3b82f6,#8b5cf6)" id="detail-logo"></div>
+        <div>
+          <div style="font-size:13px;color:#64748b" id="detail-company"></div>
+          <div style="font-size:24px;font-weight:800;color:#fff" id="detail-title"></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap" id="detail-tags"></div>
+    </div>
+  </div>
+  <div class="detail-layout">
+    <div class="detail-main">
+      <div class="detail-card">
+        <h3>📋 Deskripsi Project</h3>
+        <p id="detail-desc" style="font-size:14px;color:var(--text-muted);line-height:1.8"></p>
+      </div>
+      <div class="detail-card">
+        <h3>✅ Requirements</h3>
+        <ul class="requirement-list" id="detail-req"></ul>
+      </div>
+      <div class="detail-card">
+        <h3>🎁 Yang Akan Kamu Dapatkan</h3>
+        <div class="benefit-grid">
+          <div class="benefit-item"><h4>📁 Portofolio Nyata</h4><p>Project terverifikasi masuk ke profil publikmu</p></div>
+          <div class="benefit-item"><h4>🏅 Sertifikat</h4><p>Sertifikat resmi dari VISIONER & perusahaan mitra</p></div>
+          <div class="benefit-item"><h4>💬 Feedback Expert</h4><p>Review langsung dari profesional berpengalaman</p></div>
+          <div class="benefit-item"><h4>🌐 Network</h4><p>Terhubung dengan mentor dan talent lainnya</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-sidebar">
+      <div class="apply-card">
+        <h3>Siap Bergabung?</h3>
+        <p>Mulai perjalanan kariermu dengan mengikuti project ini sekarang.</p>
+        <button class="btn-apply" onclick="openModal('register')">Apply Sekarang</button>
+      </div>
+      <div class="detail-card" style="margin-top:0">
+        <h3>📊 Info Project</h3>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-muted)">Durasi</span><span id="detail-duration" style="font-weight:600"></span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-muted)">Peserta</span><span style="font-weight:600">12/20 slot</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-muted)">Deadline Apply</span><span style="font-weight:600;color:#dc2626">5 hari lagi</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:var(--text-muted)">Tipe</span><span style="font-weight:600">Remote</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DASHBOARD PAGE YANG INTERAKTIF ============ -->
+<div id="page-dashboard" class="page">
+  <div class="dashboard-layout">
+    <!-- SIDEBAR NAVIGASI INTERAKTIF -->
+    <div class="sidebar-nav">
+      <div class="sidebar-item active" data-tab="overview" onclick="switchDashboardTab('overview')">
+        <span>🏠</span> Overview
+      </div>
+      <div class="sidebar-item" data-tab="projects" onclick="switchDashboardTab('projects')">
+        <span>📂</span> Project Saya
+      </div>
+      <div class="sidebar-item" data-tab="portfolio" onclick="switchDashboardTab('portfolio')">
+        <span>📁</span> Portofolio
+      </div>
+      <div class="sidebar-item" data-tab="certificates" onclick="switchDashboardTab('certificates')">
+        <span>🏅</span> Sertifikat
+      </div>
+      <div class="sidebar-item" data-tab="profile" onclick="switchDashboardTab('profile')">
+        <span>👤</span> Edit Profil
+      </div>
+      <div class="sidebar-item" data-tab="achievements" onclick="switchDashboardTab('achievements')">
+        <span>🏆</span> Pencapaian
+      </div>
+      <div style="margin-top: auto">
+        <div class="sidebar-item" style="color:#dc2626" onclick="handleLogout()">
+          <span>🚪</span> Keluar
+        </div>
+      </div>
+    </div>
+    
+    <!-- MAIN CONTENT DASHBOARD -->
+    <div class="dash-content" id="dash-content">
+      <!-- Konten akan diisi oleh JavaScript -->
+    </div>
+  </div>
+</div>
+<!-- ============ PORTFOLIO PAGE ============ -->
+<div id="page-portfolio" class="page">
+  <div class="portfolio-header">
+    <div class="section-badge">✦ PORTOFOLIO</div>
+    <h1>Portofolio Ferdian Dhanino Rachmawan</h1>
+    <p>5 project selesai · 4.8 avg rating · Level 3 Visioner</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+      <span class="tag tag-blue" style="padding:6px 14px;font-size:13px">UI/UX Design</span>
+      <span class="tag tag-purple" style="padding:6px 14px;font-size:13px">Frontend Dev</span>
+      <span class="tag tag-green" style="padding:6px 14px;font-size:13px">Data Analytics</span>
+    </div>
+  </div>
+  <div class="portfolio-grid">
+    <!-- Card 1 - Tokopedia -->
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <img src="desain tokopedia.png" alt="dashboard" style="width: 1000px; height: 220px;">
+      </div>
+      <div class="portfolio-body">
+        <div class="portfolio-title">Redesign Aplikasi E-Commerce Mobile</div>
+        <div class="portfolio-company">Tokopedia · UI/UX Design · 2 Bulan</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+          <span class="tag tag-blue">Figma</span>
+          <span class="tag tag-purple">Prototyping</span>
+          <span class="tag tag-green">User Research</span>
+        </div>
+        <div class="feedback-box">"Ferdian menunjukkan pemahaman yang sangat baik tentang user experience. Hasil deliverable melampaui ekspektasi kami."</div>
+        <div class="rating-row"><span class="rating-stars">★★★★★</span><span class="rating-text">5.0 / 5.0</span></div>
+      </div>
+    </div>
+
+    <!-- Card 2 - Gojek -->
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <img src="dashboard.png" alt="dashboard" style="width: 1000px; height: 220px; object-fit: contain;">
+      </div>
+      <div class="portfolio-body">
+        <div class="portfolio-title">Dashboard Analytics Pengguna</div>
+        <div class="portfolio-company">Gojek · Data Visualization · 1.5 Bulan</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+          <span class="tag tag-blue">React</span>
+          <span class="tag tag-purple">D3.js</span>
+          <span class="tag tag-green">Python</span>
+        </div>
+        <div class="feedback-box">"Analisis data yang dilakukan sangat insightful. Ferdian cepat belajar dan sangat proaktif dalam team."</div>
+        <div class="rating-row"><span class="rating-stars">★★★★★</span><span class="rating-text">4.8 / 5.0</span></div>
+      </div>
+    </div>
+
+    <!-- Card 3 - Traveloka -->
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <img src="traveloka desain.png" alt="Traveloka" style="width: 1000px; height: 220px; object-fit: contain;">
+      </div>
+      <div class="portfolio-body">
+        <div class="portfolio-title">Landing Page Produk SaaS</div>
+        <div class="portfolio-company">Traveloka · Frontend Dev · 1 Bulan</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+          <span class="tag tag-blue">HTML/CSS</span>
+          <span class="tag tag-purple">JavaScript</span>
+          <span class="tag tag-green">Tailwind</span>
+        </div>
+        <div class="feedback-box">"Kode yang ditulis bersih dan terstruktur. Responsive design sangat sempurna di semua device."</div>
+        <div class="rating-row"><span class="rating-stars">★★★★★</span><span class="rating-text">4.7 / 5.0</span></div>
+      </div>
+    </div>
+
+    <!-- Card 4 - Bukalapak -->
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <img src="backend.jpg" alt="Bukalapak" style="width: 1000px; height: 220px; object-fit: contain;">
+      </div>
+      <div class="portfolio-body">
+        <div class="portfolio-title">Backend API Development</div>
+        <div class="portfolio-company">Bukalapak · Backend Engineer · 3 Bulan</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+          <span class="tag tag-blue">Node.js</span>
+          <span class="tag tag-purple">PostgreSQL</span>
+          <span class="tag tag-green">REST API</span>
+        </div>
+        <div class="feedback-box">"Kode yang dihasilkan production-ready dan mudah dimaintain. Sangat profesional dalam bekerja."</div>
+        <div class="rating-row"><span class="rating-stars">★★★★★</span><span class="rating-text">4.9 / 5.0</span></div>
+      </div>
+    </div>
+
+    <!-- Card 5 - Shopee -->
+    <div class="portfolio-card">
+      <div class="portfolio-thumb">
+        <img src="marketing.jpg" alt="Shopee" style="width: 1000px; height: 220px; object-fit: contain;">
+      </div>
+      <div class="portfolio-body">
+        <div class="portfolio-title">Digital Marketing Campaign</div>
+        <div class="portfolio-company">Shopee · Marketing · 1 Bulan</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px">
+          <span class="tag tag-blue">Google Ads</span>
+          <span class="tag tag-purple">SEO</span>
+          <span class="tag tag-green">Content Strategy</span>
+        </div>
+        <div class="feedback-box">"Kreatif dan hasil campaign melebihi target KPI. Sangat direkomendasikan!"</div>
+        <div class="rating-row"><span class="rating-stars">★★★★★</span><span class="rating-text">4.8 / 5.0</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MINAT & BAKAT PAGE ============ -->
+<div id="page-interest" class="page">
+    <div class="interest-hero">
+        <div class="section-badge">✦ TEMUKAN POTENSI DIRIMU</div>
+        <h1>Kenali Minat & Bakatmu</h1>
+        <p>Jawab beberapa pertanyaan berikut untuk mendapatkan rekomendasi karir yang sesuai dengan dirimu.</p>
+    </div>
+
+    <div class="interest-container">
+        <!-- Progress Bar -->
+        <div class="interest-progress">
+            <div class="progress-steps" id="progress-steps">
+                <div class="step-indicator active" data-step="0">1</div>
+                <div class="step-indicator" data-step="1">2</div>
+                <div class="step-indicator" data-step="2">3</div>
+                <div class="step-indicator" data-step="3">4</div>
+                <div class="step-indicator" data-step="4">5</div>
+            </div>
+            <div class="progress-bar-line">
+                <div class="progress-fill-line" id="progress-fill-line"></div>
+            </div>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-container" id="question-container">
+            <!-- Questions will be inserted here -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="question-nav">
+            <button class="btn-prev" id="prevBtn" onclick="prevQuestion()" style="display:none">← Sebelumnya</button>
+            <button class="btn-next" id="nextBtn" onclick="nextQuestion()">Selanjutnya →</button>
+            <button class="btn-submit" id="submitBtn" onclick="showRecommendation()" style="display:none">Lihat Rekomendasi ✨</button>
+        </div>
+    </div>
+
+    <!-- Result Section -->
+    <div class="result-section" id="result-section" style="display:none">
+        <div class="result-header">
+            <div class="section-badge" style="background:var(--blue-light);color:var(--blue)">✦ REKOMENDASI UNTUKMU</div>
+            <h2 class="section-title">Berdasarkan Minat & Bakatmu</h2>
+            <p class="section-sub">Kami telah menganalisis jawabanmu dan berikut rekomendasi yang cocok untukmu</p>
+        </div>
+
+        <div class="result-grid" id="result-grid">
+            <!-- Results will be inserted here -->
+        </div>
+
+        <div class="result-action">
+            <button class="btn-primary" onclick="resetQuiz()">Ikuti Test Lagi</button>
+            <button class="btn-outline" onclick="showPage('explore')">Cari Project →</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============ FOR CAMPUS PAGE ============ -->
+<div id="page-campus" class="page">
+    
+    <!-- Hero Section -->
+    <div class="campus-hero">
+        <div class="campus-hero-content">
+            <div class="hero-badge" style="background:#22b2c533;border-color:#0a555a66">
+                <span></span> Job Acceleration Program for Campus
+            </div>
+            <h1>Siap Memulai Karier<br>Setelah Lulus</h1>
+            <p class="hero-subtitle">Program percepatan karir untuk mahasiswa tingkat akhir yang dijamin<br>langsung dapat kerja setelah lulus</p>
+            <div class="campus-cta">
+                <button class="btn-primary" onclick="scrollToSection('partners')">📚 Yuk, Pilih Kampusmu</button>
+                <button class="btn-outline" onclick="openModalCampus()">🤝 Hubungi Kami</button>
+            </div>
+            <div class="guarantee-badge">
+                <div class="guarantee-icon">🏆</div>
+                <div class="guarantee-text">
+                    <strong>100% Alumni Job Guarantee</strong>
+                    <span>Program telah mendapatkan karier impian</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tentang Program -->
+    <section class="about-program">
+        <div class="section-header">
+            <div class="section-badge">✦ TENTANG PROGRAM</div>
+            <div class="section-title">Job Acceleration Program<br>for Campus</div>
+            <div class="section-sub">Cepat Dapat Kerja Dengan Fasilitas Berikut!</div>
+        </div>
+        <div class="features-program">
+            <div class="program-card">
+                <div class="program-icon">💼</div>
+                <h3>Jaminan 3X Project-Based Internship</h3>
+                <p>di Perusahaan Ternama</p>
+                <button class="btn-detail" onclick="showDetailProgram(1)">Lihat Detail →</button>
+            </div>
+            <div class="program-card">
+                <div class="program-icon">🎯</div>
+                <h3>Persiapan dan Bimbingan Karier</h3>
+                <p>Bersama Para Ahli</p>
+                <button class="btn-detail" onclick="showDetailProgram(2)">Lihat Detail →</button>
+            </div>
+            <div class="program-card">
+                <div class="program-icon">🤝</div>
+                <h3>Dibantu Penyaluran Kerja</h3>
+                <p>ke Hiring Partners</p>
+                <button class="btn-detail" onclick="showDetailProgram(3)">Lihat Detail →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Journey -->
+    <section class="timeline-section">
+        <div class="section-header">
+            <div class="section-badge">✦ PERJALANANMU</div>
+            <div class="section-title">di program ini</div>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-track">
+                <div class="timeline-item">
+                    <div class="timeline-time">2 Minggu</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Self-discovery</div>
+                        <p>Kenali potensi dan minat kariermu</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">1 Bulan</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Career Preparation</div>
+                        <p>Persiapan karir intensif</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">1 Bulan</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">1st Project-Based Internship</div>
+                        <p>Portfolio Building</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">1 Bulan</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">2nd Project-Based Internship</div>
+                        <p>Portfolio Building</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">6 Bulan</div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Bimbingan Kerja Intensif</div>
+                        <p>Pendampingan hingga dapat kerja</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kurikulum Program -->
+    <section class="curriculum-section">
+        <div class="section-header">
+            <div class="section-badge">✦ KURIKULUM PROGRAM</div>
+            <div class="section-title">Perjalananmu Untuk Bisa Cepat Dapat Kerja</div>
+            <div class="section-sub">9,5 Bulan Program Pendampingan Intensif</div>
+        </div>
+        <div class="curriculum-grid">
+            <div class="curriculum-phase">
+                <div class="phase-number">1</div>
+                <h4>Persiapan Program</h4>
+                <p>On-Boarding Program</p>
+            </div>
+            <div class="curriculum-phase">
+                <div class="phase-number">2</div>
+                <h4>Bulan Pertama</h4>
+                <p>Career Preparation & Portfolio Building</p>
+            </div>
+            <div class="curriculum-phase">
+                <div class="phase-number">3</div>
+                <h4>Bulan Kedua</h4>
+                <p>1st Project-Based Internship</p>
+            </div>
+            <div class="curriculum-phase">
+                <div class="phase-number">4</div>
+                <h4>Bulan Ketiga</h4>
+                <p>2nd Project-Based Internship</p>
+            </div>
+            <div class="curriculum-phase">
+                <div class="phase-number">5</div>
+                <h4>6 Bulan</h4>
+                <p>Bimbingan Kerja Intensif</p>
+            </div>
+        </div>
+        <div class="curriculum-details">
+            <div class="detail-item">
+                <span class="detail-icon">🎯</span>
+                <span>Konseling karier dengan para ahli</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">💼</span>
+                <span>Bimbingan karier dengan para ahli</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">🎤</span>
+                <span>Simulasi interview bersama HR & User</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-icon">📊</span>
+                <span>Pemantauan proses perekrutan yang sedang dilakukan</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Universities -->
+    <section class="partners-section" id="partners">
+        <div class="section-header">
+            <div class="section-badge">✦ BERSAMA KAMPUS TERKEMUKA</div>
+            <div class="section-title">Kampus Yang Telah Berkolaborasi</div>
+            <div class="section-sub">dengan VISIONER</div>
+        </div>
+        <div class="partners-grid">
+            <div class="partner-card">
+                <div class="partner-logo"></div>
+                <img src="ITS.png" alt="ITS" style="width: 60px; height: 60px; object-fit: contain;">
+                <h4>Institut Teknologi Sepuluh Nopember</h4>
+                <p>Kota Surabaya, Jawa Timur</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo"></div>
+                <img src="UNAIR.png" alt="UNAIR" style="width: 60px; height: 60px; object-fit: contain;">
+                <h4>Universitas Airlangga</h4>
+                <p>Kota Surabaya, Jawa Timur</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo"></div>
+                <img src="HANG TUAH.jpg" alt="HANG TUAH" style="width: 60px; height: 60px; object-fit: contain;">
+                <h4>Universitas Hang Tuah Surabaya</h4>
+                <p>Kota Surabaya, Jawa Timur</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo"></div>
+                <img src="UNESA.png" alt="UNESA" style="width: 60px; height: 60px; object-fit: contain;">
+                <h4>Universitas Negeri Surabaya</h4>
+                <p>Kota Surabaya, Jawa Timur</p>
+            </div>
+            <div class="partner-card">
+                <div class="partner-logo"></div>
+                <img src="UBAYA.png" alt="UNIVERSITAS SURABAYA" style="width: 60px; height: 60px; object-fit: contain;">
+                <h4>Universitas Surabaya</h4>
+                <p>Kota Surabaya, Jawa Timur</p>
+            </div>
+        </div>
+        <div class="partner-cta">
+            <p>Sudah mendapatkan email berisi akun Job Acceleration Program?</p>
+            <div class="partner-buttons">
+                <button class="btn-primary" onclick="openModal('login')">Login Sekarang</button>
+                <button class="btn-outline" onclick="openModalCampus()">Hubungi Kami</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-campus">
+        <div class="section-header">
+            <div class="section-badge">✦ TESTIMONI</div>
+            <div class="section-title">Kata Mereka Tentang<br>Job Acceleration Program</div>
+        </div>
+        <div class="testimonials-campus-grid" id="campus-testimonials">
+            <!-- Testimonials loaded via JS -->
+        </div>
+        <button class="btn-load-more" onclick="loadMoreTestimonials()">Lihat lebih banyak ↓</button>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-header">
+            <div class="section-badge">✦ FAQ</div>
+            <div class="section-title">Pertanyaan Seputar<br>Job Acceleration Program for Campus</div>
+        </div>
+        <div class="faq-container" id="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Saya seorang mahasiswa dan kampus saya tidak terdapat pada list diatas, apa yang harus saya lakukan untuk bisa mengikuti program?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Anda tetap bisa mengikuti program dengan mendaftar secara individu atau menghubungi tim VISIONER melalui form yang tersedia. Kami akan membantu memproses pendaftaran Anda meskipun kampus belum bekerja sama.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Saya pihak kampus yang tertarik untuk partnership dengan VISIONER dalam program ini, saya harus menghubungi siapa?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Silakan hubungi tim partnership kami di email campus@visioner.com atau melalui nomor WhatsApp 0811-8888-123. Kami akan dengan senang hati menjelaskan detail kerja sama.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Jika ada error pada web belajar VISIONER, reportnya kemana?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Anda dapat melaporkan error melalui fitur "Bantuan" di dashboard, atau menghubungi customer support kami di support@visioner.com dengan screenshot error yang dialami.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Jika ada error ketika mengerjakan Project-based Internship (PBI), apa yang harus dilakukan?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Segera hubungi mentor project Anda melalui chat yang tersedia di platform, atau email ke pbi-support@visioner.com dengan detail kendala yang dihadapi.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Ketika melaksanakan program, JAP apakah bisa mengikuti PBI juga?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    Ya, program JAP sudah terintegrasi dengan 3x Project-Based Internship yang menjadi bagian dari kurikulum program.
+                </div>
+            </div>
+        </div>
+        <div class="faq-footer">
+            <button class="btn-primary" onclick="openModalCampus()">Pelajari Lebih Lanjut →</button>
+        </div>
+    </section>
+</div>
+
+<!-- AUTH MODAL - VERSI REGISTRASI DENGAN BIODATA LENGKAP -->
+<!-- AUTH MODAL - VERSI LENGKAP YANG BISA DISCROLL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    
+    <!-- FORM LOGIN -->
+    <div id="modal-login">
+      <h2>Selamat Datang 👋</h2>
+      <p>Masuk ke akun VISIONER kamu</p>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="nama@email.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••">
+      </div>
+      <button class="btn-full" onclick="handleLogin()">Masuk ke Dashboard</button>
+      <div class="auth-switch">Belum punya akun? <span onclick="switchModal('register')">Daftar gratis</span></div>
+    </div>
+    
+    <!-- FORM REGISTRASI DENGAN BIODATA LENGKAP (BISA DISCROLL) -->
+    <div id="modal-register" style="display:none">
+      <h2>Bergabung Gratis 🚀</h2>
+      <p>Isi biodata berikut untuk memulai perjalanan kariermu</p>
+      
+      <div class="form-group">
+        <label>Nama Lengkap <span style="color:#ef4444">*</span></label>
+        <input type="text" id="regNama" placeholder="Contoh: Ferdian Dhanino Rachmawan">
+      </div>
+      
+      <div class="form-group">
+        <label>Email <span style="color:#ef4444">*</span></label>
+        <input type="email" id="regEmail" placeholder="nama@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label>Nomor WhatsApp <span style="color:#ef4444">*</span></label>
+        <input type="tel" id="regWa" placeholder="Contoh: 081234567890">
+      </div>
+      
+      <div class="form-group">
+        <label>Password <span style="color:#ef4444">*</span></label>
+        <input type="password" id="regPassword" placeholder="Minimal 8 karakter">
+      </div>
+      
+      <div class="form-group">
+        <label>Konfirmasi Password <span style="color:#ef4444">*</span></label>
+        <input type="password" id="regConfirmPassword" placeholder="Ketik ulang password">
+      </div>
+      
+      <div class="form-group">
+        <label>Asal Universitas <span style="color:#ef4444">*</span></label>
+        <input type="text" id="regUniversitas" placeholder="Contoh: Universitas Indonesia">
+      </div>
+      
+      <div class="form-group">
+        <label>Jurusan <span style="color:#ef4444">*</span></label>
+        <input type="text" id="regJurusan" placeholder="Contoh: Teknik Informatika">
+      </div>
+      
+      <div class="form-group">
+        <label>Semester Saat Ini <span style="color:#ef4444">*</span></label>
+        <select id="regSemester">
+          <option value="">Pilih Semester</option>
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+          <option value="3">Semester 3</option>
+          <option value="4">Semester 4</option>
+          <option value="5">Semester 5</option>
+          <option value="6">Semester 6</option>
+          <option value="7">Semester 7</option>
+          <option value="8">Semester 8</option>
+          <option value="9+">Semester 9+</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label>Skill yang Dikuasai <span style="color:#ef4444">*</span></label>
+        <input type="text" id="regSkill" placeholder="Contoh: Figma, Python, UI/UX">
+        <small style="font-size:11px; color:var(--text-muted); display:block; margin-top:5px">Pisahkan setiap skill dengan tanda koma (,)</small>
+      </div>
+      
+      <div class="form-group">
+        <label>Minat Karir <span style="color:#ef4444">*</span></label>
+        <select id="regMinat">
+          <option value="">Pilih Minat Karir</option>
+          <option value="uiux">UI/UX Designer</option>
+          <option value="frontend">Frontend Developer</option>
+          <option value="backend">Backend Developer</option>
+          <option value="data">Data Analyst / Scientist</option>
+          <option value="marketing">Digital Marketing</option>
+          <option value="product">Product Manager</option>
+          <option value="business">Business Analyst</option>
+          <option value="other">Lainnya</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label style="display:flex; align-items:center; gap:10px; cursor:pointer">
+          <input type="checkbox" id="regTerms" style="width:18px; height:18px; accent-color:var(--blue)">
+          <span style="font-size:13px; font-weight:normal">Saya menyetujui <span style="color:var(--blue); cursor:pointer">Syarat & Ketentuan</span> dan <span style="color:var(--blue); cursor:pointer">Kebijakan Privasi</span></span>
+        </label>
+      </div>
+      
+      <button class="btn-full" onclick="handleRegister()">Daftar Sekarang</button>
+      <div class="auth-switch">Sudah punya akun? <span onclick="switchModal('login')">Masuk di sini</span></div>
+    </div>
+  </div>
+</div>
+<script>
+
+// ============ DASHBOARD INTERAKTIF ============
+
+// Data user saat ini (simulasi jika belum login)
+let currentUser = null;
+
+// Data project user
+let userProjects = [
+    {
+        id: 1,
+        title: "UI/UX Redesign Mobile App",
+        company: "Tokopedia",
+        progress: 72,
+        daysLeft: 18,
+        status: "ongoing",
+        startDate: "2024-01-15",
+        endDate: "2024-03-15",
+        mentor: "Budi Santoso",
+        skills: ["Figma", "Prototyping"]
+    },
+    {
+        id: 2,
+        title: "Data Analysis Dashboard",
+        company: "Gojek",
+        progress: 35,
+        daysLeft: 42,
+        status: "ongoing",
+        startDate: "2024-02-01",
+        endDate: "2024-04-15",
+        mentor: "Siti Nurhaliza",
+        skills: ["Python", "Tableau"]
+    },
+    {
+        id: 3,
+        title: "Landing Page Website",
+        company: "Traveloka",
+        progress: 100,
+        daysLeft: 0,
+        status: "completed",
+        startDate: "2023-12-01",
+        endDate: "2024-01-15",
+        mentor: "Andhika Pratama",
+        skills: ["HTML/CSS", "JavaScript"],
+        rating: 4.8,
+        feedback: "Kode yang ditulis bersih dan terstruktur. Responsive design sempurna!"
+    }
+];
+
+// Data sertifikat
+let userCertificates = [
+    {
+        id: 1,
+        title: "UI/UX Design Fundamentals",
+        issuer: "VISIONER x Tokopedia",
+        date: "Januari 2024",
+        icon: "🎨",
+        verified: true
+    },
+    {
+        id: 2,
+        title: "Data Analytics with Python",
+        issuer: "VISIONER x Gojek",
+        date: "Februari 2024",
+        icon: "📊",
+        verified: true
+    },
+    {
+        id: 3,
+        title: "Frontend Web Development",
+        issuer: "VISIONER x Traveloka",
+        date: "Desember 2023",
+        icon: "🌐",
+        verified: true
+    }
+];
+
+// Data pencapaian
+let userAchievements = [
+    { id: 1, name: "First Project", description: "Menyelesaikan project pertama", icon: "🎯", achieved: true, date: "Jan 2024" },
+    { id: 2, name: "Project Master", description: "Menyelesaikan 3 project", icon: "🏆", achieved: true, date: "Feb 2024" },
+    { id: 3, name: "Skill Explorer", description: "Menguasai 5+ skills", icon: "💪", achieved: true, date: "Mar 2024" },
+    { id: 4, name: "Top Performer", description: "Mendapat rating 5.0", icon: "⭐", achieved: false, progress: 80 },
+    { id: 5, name: "Community Hero", description: "Membantu 10 teman", icon: "🤝", achieved: false, progress: 30 }
+];
+
+// Fungsi switch tab dashboard
+function switchDashboardTab(tabName) {
+    // Update active state di sidebar
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    document.querySelector(`.sidebar-item[data-tab="${tabName}"]`).classList.add('active');
+    
+    // Render konten sesuai tab
+    const content = document.getElementById('dash-content');
+    
+    switch(tabName) {
+        case 'overview':
+            renderOverviewTab(content);
+            break;
+        case 'projects':
+            renderProjectsTab(content);
+            break;
+        case 'portfolio':
+            renderPortfolioTab(content);
+            break;
+        case 'certificates':
+            renderCertificatesTab(content);
+            break;
+        case 'profile':
+            renderProfileTab(content);
+            break;
+        case 'achievements':
+            renderAchievementsTab(content);
+            break;
+    }
+}
+
+// TAB 1: OVERVIEW
+function renderOverviewTab(container) {
+    // Ambil data user dari localStorage
+    const userData = localStorage.getItem('visioner_current_user');
+    let user = userData ? JSON.parse(userData) : { nama: "Pengguna", universitas: "Universitas", jurusan: "Jurusan", semester: "4", skill: [] };
+    
+    const ongoingProjects = userProjects.filter(p => p.status === 'ongoing');
+    const completedProjects = userProjects.filter(p => p.status === 'completed');
+    const totalProgress = ongoingProjects.length > 0 
+        ? Math.round(ongoingProjects.reduce((sum, p) => sum + p.progress, 0) / ongoingProjects.length)
+        : 0;
+    
+    container.innerHTML = `
+        <div class="welcome-card">
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+                <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0">${user.nama?.charAt(0) || 'U'}</div>
+                <div>
+                    <h2>Selamat datang, ${user.nama?.split(' ')[0] || 'Pengguna'}! 👋</h2>
+                    <p>${user.universitas || 'Universitas'} · ${user.jurusan || 'Jurusan'} · Semester ${user.semester || '4'}</p>
+                </div>
+            </div>
+            <div style="display:flex;gap:20px;margin-top:20px;flex-wrap:wrap">
+                <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;text-align:center"><div style="font-size:20px;font-weight:800">${user.skill?.length || 0}</div><div style="font-size:11px;opacity:0.8">Skills</div></div>
+                <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;text-align:center"><div style="font-size:20px;font-weight:800">Level ${Math.floor(completedProjects.length / 2) + 1}</div><div style="font-size:11px;opacity:0.8">Rank Kamu</div></div>
+                <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;text-align:center"><div style="font-size:20px;font-weight:800">${completedProjects.length * 100 + ongoingProjects.length * 50}</div><div style="font-size:11px;opacity:0.8">Total Poin</div></div>
+            </div>
+        </div>
+        
+        <div class="dash-grid">
+            <div class="dash-stat" onclick="switchDashboardTab('projects')">
+                <div class="dash-stat-num">${ongoingProjects.length}</div>
+                <div class="dash-stat-label">Project Aktif</div>
+                <small style="font-size:10px; color:var(--text-muted)">Klik untuk lihat →</small>
+            </div>
+            <div class="dash-stat" onclick="switchDashboardTab('projects')">
+                <div class="dash-stat-num">${completedProjects.length}</div>
+                <div class="dash-stat-label">Diselesaikan</div>
+                <small style="font-size:10px; color:var(--text-muted)">Klik untuk lihat →</small>
+            </div>
+            <div class="dash-stat" onclick="switchDashboardTab('certificates')">
+                <div class="dash-stat-num">${userCertificates.length}</div>
+                <div class="dash-stat-label">Sertifikat</div>
+                <small style="font-size:10px; color:var(--text-muted)">Klik untuk lihat →</small>
+            </div>
+            <div class="dash-stat" onclick="showRatingDetail()">
+                <div class="dash-stat-num">${userProjects.filter(p => p.rating).reduce((sum, p) => sum + p.rating, 0) / (userProjects.filter(p => p.rating).length || 1)}</div>
+                <div class="dash-stat-label">Avg Rating</div>
+                <small style="font-size:10px; color:var(--text-muted)">Klik untuk detail →</small>
+            </div>
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px">
+            <h3 style="font-size:16px; font-weight:700">📋 Project Berlangsung</h3>
+            <button class="action-btn action-btn-primary" onclick="switchDashboardTab('projects')" style="padding:8px 16px; font-size:12px">Lihat Semua →</button>
+        </div>
+        
+        <div class="ongoing-grid">
+            ${ongoingProjects.length > 0 ? ongoingProjects.map(project => `
+                <div class="ongoing-card" onclick="showProjectDetail(${project.id})">
+                    <div class="ongoing-icon" style="background:${project.company === 'Tokopedia' ? '#eff6ff' : project.company === 'Gojek' ? '#f5f3ff' : '#ecfdf5'}">
+                        ${project.company === 'Tokopedia' ? '💻' : project.company === 'Gojek' ? '📊' : '🌐'}
+                    </div>
+                    <div class="ongoing-info">
+                        <div class="ongoing-title">${project.title}</div>
+                        <div class="ongoing-company">${project.company} · Remote</div>
+                        <div class="progress-bar"><div class="progress-fill" style="width:${project.progress}%"></div></div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:4px">
+                            <span>${project.progress}% selesai</span>
+                            <span>${project.daysLeft} hari tersisa</span>
+                        </div>
+                    </div>
+                    <div><span class="status-badge status-ongoing">Ongoing</span></div>
+                </div>
+            `).join('') : '<div style="text-align:center; padding:40px; background:#fff; border-radius:16px">✨ Belum ada project aktif. <a href="#" onclick="showPage(\'explore\')">Cari project sekarang →</a></div>'}
+        </div>
+        
+        <div class="action-buttons">
+            <button class="action-btn action-btn-primary" onclick="showPage('explore')">
+                🔍 Cari Project Baru
+            </button>
+            <button class="action-btn action-btn-secondary" onclick="showPage('interest')">
+                🎯 Test Minat & Bakat
+            </button>
+        </div>
+    `;
+}
+
+// TAB 2: PROJECT SAYA
+function renderProjectsTab(container) {
+    const allProjects = userProjects;
+    const ongoingProjects = allProjects.filter(p => p.status === 'ongoing');
+    const completedProjects = allProjects.filter(p => p.status === 'completed');
+    
+    container.innerHTML = `
+        <div style="margin-bottom:24px">
+            <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">📂 Project Saya</h2>
+            <p style="color:var(--text-muted)">Kelola dan pantau progress project-mu di sini</p>
+        </div>
+        
+        <div style="display:flex; gap:16px; margin-bottom:24px; border-bottom:2px solid var(--border)">
+            <button class="filter-btn active" onclick="filterProjects('all', this)">Semua (${allProjects.length})</button>
+            <button class="filter-btn" onclick="filterProjects('ongoing', this)">Berlangsung (${ongoingProjects.length})</button>
+            <button class="filter-btn" onclick="filterProjects('completed', this)">Selesai (${completedProjects.length})</button>
+        </div>
+        
+        <div id="projects-list" class="ongoing-grid">
+            ${allProjects.map(project => `
+                <div class="ongoing-card" onclick="showProjectDetail(${project.id})">
+                    <div class="ongoing-icon" style="background:${project.company === 'Tokopedia' ? '#eff6ff' : project.company === 'Gojek' ? '#f5f3ff' : '#ecfdf5'}">
+                        ${project.company === 'Tokopedia' ? '💻' : project.company === 'Gojek' ? '📊' : '🌐'}
+                    </div>
+                    <div class="ongoing-info">
+                        <div class="ongoing-title">${project.title}</div>
+                        <div class="ongoing-company">${project.company} · Remote</div>
+                        ${project.status === 'ongoing' ? `
+                            <div class="progress-bar"><div class="progress-fill" style="width:${project.progress}%"></div></div>
+                            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:4px">
+                                <span>${project.progress}% selesai</span>
+                                <span>${project.daysLeft} hari tersisa</span>
+                            </div>
+                        ` : `
+                            <div style="margin-top:8px">
+                                <span class="status-badge status-done">Selesai</span>
+                                <span style="margin-left:12px; font-size:12px">⭐ Rating: ${project.rating}/5.0</span>
+                            </div>
+                        `}
+                    </div>
+                    <div><span class="status-badge ${project.status === 'ongoing' ? 'status-ongoing' : 'status-done'}">${project.status === 'ongoing' ? 'Ongoing' : 'Selesai'}</span></div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// TAB 3: PORTOFOLIO
+function renderPortfolioTab(container) {
+    const completedProjects = userProjects.filter(p => p.status === 'completed');
+    
+    container.innerHTML = `
+        <div style="margin-bottom:24px">
+            <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">📁 Portofolio Saya</h2>
+            <p style="color:var(--text-muted)">Kumpulan project yang sudah kamu selesaikan</p>
+        </div>
+        
+        <div class="portfolio-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:24px; padding:0">
+            ${completedProjects.map(project => `
+                <div class="portfolio-card" onclick="showProjectDetail(${project.id})">
+                    <div class="portfolio-thumb" style="height:160px; background:linear-gradient(135deg,#f0f4ff,#f5f3ff)">
+                        <div style="font-size:48px">${project.company === 'Tokopedia' ? '💻' : project.company === 'Gojek' ? '📊' : '🌐'}</div>
+                    </div>
+                    <div class="portfolio-body">
+                        <div class="portfolio-title">${project.title}</div>
+                        <div class="portfolio-company">${project.company} · ${project.status === 'completed' ? 'Selesai' : 'Berlangsung'}</div>
+                        ${project.feedback ? `<div class="feedback-box">"${project.feedback}"</div>` : ''}
+                        <div class="rating-row">
+                            <span class="rating-stars">${'★'.repeat(Math.floor(project.rating || 0))}${'☆'.repeat(5 - Math.floor(project.rating || 0))}</span>
+                            <span class="rating-text">${project.rating || 0} / 5.0</span>
+                        </div>
+                        <button class="btn-download" style="margin-top:12px; width:100%" onclick="event.stopPropagation();sharePortfolio(${project.id})">📤 Bagikan ke LinkedIn</button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        
+        ${completedProjects.length === 0 ? '<div style="text-align:center; padding:60px; background:#fff; border-radius:16px">✨ Belum ada project selesai. Mulai kerjakan project sekarang!</div>' : ''}
+        
+        <div class="action-buttons" style="margin-top:24px">
+            <button class="action-btn action-btn-primary" onclick="window.open('https://linkedin.com', '_blank')">
+                📤 Bagikan Portofolio ke LinkedIn
+            </button>
+            <button class="action-btn action-btn-secondary" onclick="downloadPortfolio()">
+                📥 Download Portofolio (PDF)
+            </button>
+        </div>
+    `;
+}
+
+// TAB 4: SERTIFIKAT
+function renderCertificatesTab(container) {
+    container.innerHTML = `
+        <div style="margin-bottom:24px">
+            <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">🏅 Sertifikat Saya</h2>
+            <p style="color:var(--text-muted)">Kumpulan sertifikat yang sudah kamu dapatkan</p>
+        </div>
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px">
+            ${userCertificates.map(cert => `
+                <div class="certificate-card" onclick="downloadCertificate(${cert.id})">
+                    <div class="certificate-icon">${cert.icon}</div>
+                    <div class="certificate-title">${cert.title}</div>
+                    <div style="font-size:12px; color:var(--text-muted); margin-bottom:4px">${cert.issuer}</div>
+                    <div class="certificate-date">📅 ${cert.date}</div>
+                    <div style="margin-top:8px">
+                        <span style="font-size:10px; background:var(--green-light); color:var(--green); padding:2px 8px; border-radius:20px">✓ Terverifikasi</span>
+                    </div>
+                    <button class="btn-download" onclick="event.stopPropagation();downloadCertificate(${cert.id})">⬇️ Download Sertifikat</button>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// TAB 5: EDIT PROFIL
+function renderProfileTab(container) {
+    const userData = localStorage.getItem('visioner_current_user');
+    let user = userData ? JSON.parse(userData) : { 
+        nama: "", email: "", wa: "", universitas: "", jurusan: "", semester: "4", skill: [] 
+    };
+    
+    container.innerHTML = `
+        <div style="margin-bottom:24px">
+            <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">👤 Edit Profil</h2>
+            <p style="color:var(--text-muted)">Perbarui informasi dirimu agar mendapatkan rekomendasi project yang tepat</p>
+        </div>
+        
+        <div class="profile-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="editNama" value="${user.nama || ''}" placeholder="Nama lengkap">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editEmail" value="${user.email || ''}" placeholder="Email">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Nomor WhatsApp</label>
+                    <input type="tel" id="editWa" value="${user.wa || ''}" placeholder="Nomor WhatsApp">
+                </div>
+                <div class="form-group">
+                    <label>Asal Universitas</label>
+                    <input type="text" id="editUniversitas" value="${user.universitas || ''}" placeholder="Universitas">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Jurusan</label>
+                    <input type="text" id="editJurusan" value="${user.jurusan || ''}" placeholder="Jurusan">
+                </div>
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select id="editSemester">
+                        ${[1,2,3,4,5,6,7,8].map(s => `<option value="${s}" ${user.semester == s ? 'selected' : ''}>Semester ${s}</option>`).join('')}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Skill yang Dikuasai</label>
+                <div class="skill-tag-input" id="skillContainer">
+                    ${user.skill?.map(skill => `
+                        <span class="skill-tag-item">
+                            ${skill}
+                            <button onclick="removeSkill('${skill}')">✕</button>
+                        </span>
+                    `).join('')}
+                    <input type="text" class="skill-input-field" id="skillInput" placeholder="Tambah skill..." onkeypress="addSkillOnEnter(event)">
+                </div>
+                <small style="font-size:11px; color:var(--text-muted)">Tekan Enter untuk menambah skill</small>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="action-btn action-btn-primary" onclick="saveProfile()">
+                    💾 Simpan Perubahan
+                </button>
+                <button class="action-btn action-btn-secondary" onclick="switchDashboardTab('overview')">
+                    ↩️ Batal
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// TAB 6: PENCAPAIAN
+function renderAchievementsTab(container) {
+    const achievedCount = userAchievements.filter(a => a.achieved).length;
+    const totalCount = userAchievements.length;
+    const progressPercent = (achievedCount / totalCount) * 100;
+    
+    container.innerHTML = `
+        <div style="margin-bottom:24px">
+            <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">🏆 Pencapaian Saya</h2>
+            <p style="color:var(--text-muted)">Kumpulan achievement yang sudah kamu raih</p>
+        </div>
+        
+        <div style="background:#fff; border-radius:16px; padding:24px; margin-bottom:24px; border:1px solid var(--border)">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:12px">
+                <div>
+                    <span style="font-size:28px; font-weight:800">${achievedCount}/${totalCount}</span>
+                    <span style="color:var(--text-muted)"> Achievement</span>
+                </div>
+                <div style="background:var(--blue-light); padding:8px 16px; border-radius:20px">
+                    <span style="font-weight:600">Level ${Math.floor(achievedCount / 2) + 1} Visioner</span>
+                </div>
+            </div>
+            <div class="progress-bar" style="height:12px">
+                <div class="progress-fill" style="width:${progressPercent}%"></div>
+            </div>
+        </div>
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px">
+            ${userAchievements.map(ach => `
+                <div class="achievement-badge ${!ach.achieved ? 'locked' : ''}" onclick="${ach.achieved ? `showAchievementDetail('${ach.name}')` : 'alert(`🔒 Achievement ini belum terbuka.\\n\\n${ach.description}\\n\\nProgress: ${ach.progress || 0}%`)'}">
+                    <div style="font-size:32px">${ach.icon}</div>
+                    <div style="flex:1">
+                        <div style="font-weight:700; font-size:14px">${ach.name}</div>
+                        <div style="font-size:11px; color:var(--text-muted)">${ach.description}</div>
+                        ${ach.achieved ? `<div style="font-size:10px; color:var(--green); margin-top:4px">✓ Dicapai: ${ach.date}</div>` : 
+                          `<div class="progress-bar" style="height:4px; margin-top:8px"><div class="progress-fill" style="width:${ach.progress || 0}%"></div></div>`}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// FUNGSI-FUNGSI INTERAKTIF
+function filterProjects(status, element) {
+    // Update active button
+    const container = element.closest('div');
+    container.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
+    
+    // Filter projects
+    let filtered = userProjects;
+    if (status === 'ongoing') filtered = userProjects.filter(p => p.status === 'ongoing');
+    if (status === 'completed') filtered = userProjects.filter(p => p.status === 'completed');
+    
+    const projectsList = document.getElementById('projects-list');
+    if (projectsList) {
+        projectsList.innerHTML = filtered.map(project => `
+            <div class="ongoing-card" onclick="showProjectDetail(${project.id})">
+                <div class="ongoing-icon" style="background:${project.company === 'Tokopedia' ? '#eff6ff' : project.company === 'Gojek' ? '#f5f3ff' : '#ecfdf5'}">
+                    ${project.company === 'Tokopedia' ? '💻' : project.company === 'Gojek' ? '📊' : '🌐'}
+                </div>
+                <div class="ongoing-info">
+                    <div class="ongoing-title">${project.title}</div>
+                    <div class="ongoing-company">${project.company} · Remote</div>
+                    ${project.status === 'ongoing' ? `
+                        <div class="progress-bar"><div class="progress-fill" style="width:${project.progress}%"></div></div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted); margin-top:4px">
+                            <span>${project.progress}% selesai</span>
+                            <span>${project.daysLeft} hari tersisa</span>
+                        </div>
+                    ` : `
+                        <div style="margin-top:8px">
+                            <span class="status-badge status-done">Selesai</span>
+                            <span style="margin-left:12px; font-size:12px">⭐ Rating: ${project.rating}/5.0</span>
+                        </div>
+                    `}
+                </div>
+                <div><span class="status-badge ${project.status === 'ongoing' ? 'status-ongoing' : 'status-done'}">${project.status === 'ongoing' ? 'Ongoing' : 'Selesai'}</span></div>
+            </div>
+        `).join('');
+    }
+}
+
+function showProjectDetail(projectId) {
+    const project = userProjects.find(p => p.id === projectId);
+    if (!project) return;
+    
+    const modalHtml = `
+        <div class="modal-overlay" id="project-modal" style="display:flex">
+            <div class="modal modal-detail">
+                <button class="modal-close" onclick="closeProjectModal()">✕</button>
+                <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">${project.title}</h2>
+                <p style="color:var(--text-muted); margin-bottom:20px">${project.company}</p>
+                
+                <div class="detail-item">
+                    <span class="detail-label">Status</span>
+                    <span class="detail-value">${project.status === 'ongoing' ? '🟢 Berlangsung' : '✅ Selesai'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Progress</span>
+                    <span class="detail-value">${project.progress}%</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Mentor</span>
+                    <span class="detail-value">${project.mentor}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Durasi</span>
+                    <span class="detail-value">${project.startDate} - ${project.endDate}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Skills</span>
+                    <span class="detail-value">${project.skills.join(', ')}</span>
+                </div>
+                ${project.rating ? `
+                <div class="detail-item">
+                    <span class="detail-label">Rating</span>
+                    <span class="detail-value">⭐ ${project.rating}/5.0</span>
+                </div>
+                ` : ''}
+                ${project.feedback ? `
+                <div class="detail-item" style="flex-direction:column; align-items:flex-start">
+                    <span class="detail-label">Feedback</span>
+                    <span class="detail-value" style="font-style:italic">"${project.feedback}"</span>
+                </div>
+                ` : ''}
+                
+                <div class="action-buttons" style="margin-top:24px">
+                    ${project.status === 'ongoing' ? `
+                        <button class="action-btn action-btn-primary" onclick="updateProgress(${project.id})">📈 Update Progress</button>
+                    ` : `
+                        <button class="action-btn action-btn-primary" onclick="sharePortfolio(${project.id})">📤 Bagikan ke LinkedIn</button>
+                    `}
+                    <button class="action-btn action-btn-secondary" onclick="closeProjectModal()">Tutup</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('project-modal');
+    if (modal) modal.remove();
+}
+
+function updateProgress(projectId) {
+    const newProgress = prompt('Masukkan progress terbaru (0-100%):', '50');
+    if (newProgress && !isNaN(newProgress) && newProgress >= 0 && newProgress <= 100) {
+        const project = userProjects.find(p => p.id === projectId);
+        if (project) {
+            project.progress = parseInt(newProgress);
+            if (project.progress === 100) {
+                project.status = 'completed';
+                project.rating = 4.8;
+                project.feedback = "Selamat! Project kamu telah selesai. Tim mentor akan memberikan feedback segera.";
+                alert('🎉 Selamat! Project telah selesai. Portfolio dan sertifikat akan segera tersedia.');
+            } else {
+                alert(`✅ Progress berhasil diupdate ke ${newProgress}%`);
+            }
+            closeProjectModal();
+            switchDashboardTab('projects');
+        }
+    }
+}
+
+function showRatingDetail() {
+    const avgRating = userProjects.filter(p => p.rating).reduce((sum, p) => sum + p.rating, 0) / (userProjects.filter(p => p.rating).length || 1);
+    alert(`⭐ Rating Rata-rata: ${avgRating.toFixed(1)}/5.0\n\nDetail rating per project:\n${userProjects.filter(p => p.rating).map(p => `• ${p.title}: ${p.rating}/5.0`).join('\n')}`);
+}
+
+function sharePortfolio(projectId) {
+    const project = userProjects.find(p => p.id === projectId);
+    if (project) {
+        alert(`📤 Bagikan ke LinkedIn:\n\nSaya baru saja menyelesaikan project "${project.title}" di VISIONER!\n\n#Portfolio #Internship #VISIONER`);
+        window.open('https://linkedin.com', '_blank');
+    }
+}
+
+function downloadPortfolio() {
+    alert('📥 Portofolio sedang diproses...\n\nFile PDF akan segera terdownload.');
+}
+
+function downloadCertificate(certId) {
+    const cert = userCertificates.find(c => c.id === certId);
+    if (cert) {
+        alert(`📥 Mendownload sertifikat: ${cert.title}\n\nSertifikat akan tersimpan di perangkat Anda.`);
+    }
+}
+
+// Fungsi edit profile
+let tempSkills = [];
+
+function addSkillOnEnter(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        const input = event.target;
+        const skill = input.value.trim();
+        if (skill && !tempSkills.includes(skill)) {
+            tempSkills.push(skill);
+            updateSkillTags();
+            input.value = '';
+        }
+    }
+}
+
+function removeSkill(skill) {
+    tempSkills = tempSkills.filter(s => s !== skill);
+    updateSkillTags();
+}
+
+function updateSkillTags() {
+    const container = document.getElementById('skillContainer');
+    if (container) {
+        const inputField = container.querySelector('.skill-input-field');
+        container.innerHTML = `
+            ${tempSkills.map(skill => `
+                <span class="skill-tag-item">
+                    ${skill}
+                    <button onclick="removeSkill('${skill}')">✕</button>
+                </span>
+            `).join('')}
+            <input type="text" class="skill-input-field" id="skillInput" placeholder="Tambah skill..." onkeypress="addSkillOnEnter(event)">
+        `;
+    }
+}
+
+function saveProfile() {
+    const userData = localStorage.getItem('visioner_current_user');
+    let user = userData ? JSON.parse(userData) : {};
+    
+    const updatedUser = {
+        ...user,
+        nama: document.getElementById('editNama')?.value || user.nama,
+        email: document.getElementById('editEmail')?.value || user.email,
+        wa: document.getElementById('editWa')?.value || user.wa,
+        universitas: document.getElementById('editUniversitas')?.value || user.universitas,
+        jurusan: document.getElementById('editJurusan')?.value || user.jurusan,
+        semester: document.getElementById('editSemester')?.value || user.semester,
+        skill: tempSkills.length > 0 ? tempSkills : user.skill
+    };
+    
+    // Update localStorage
+    const allUsers = JSON.parse(localStorage.getItem('visioner_users') || '[]');
+    const userIndex = allUsers.findIndex(u => u.email === user.email);
+    if (userIndex !== -1) {
+        allUsers[userIndex] = updatedUser;
+        localStorage.setItem('visioner_users', JSON.stringify(allUsers));
+    }
+    localStorage.setItem('visioner_current_user', JSON.stringify(updatedUser));
+    
+    alert('✅ Profil berhasil disimpan!');
+    switchDashboardTab('overview');
+}
+
+function showAchievementDetail(achievementName) {
+    alert(`🏆 ${achievementName}\n\nSelamat! Kamu telah mencapai achievement ini.\n\nTerus tingkatkan prestasimu!`);
+}
+
+function handleLogout() {
+    if (confirm('Apakah Anda yakin ingin logout?')) {
+        localStorage.removeItem('visioner_current_user');
+        alert('👋 Anda telah logout. Sampai jumpa kembali!');
+        showPage('home');
+    }
+}
+
+// Inisialisasi dashboard
+document.addEventListener('DOMContentLoaded', function() {
+    // Cek session
+    const currentUser = localStorage.getItem('visioner_current_user');
+    if (currentUser) {
+        const user = JSON.parse(currentUser);
+        // Load user skills ke tempSkills
+        if (user.skill) tempSkills = [...user.skill];
+    }
+    
+    // Load dashboard overview
+    const dashContent = document.getElementById('dash-content');
+    if (dashContent && document.getElementById('page-dashboard').classList.contains('active')) {
+        renderOverviewTab(dashContent);
+    }
+});
+
+// Override showPage untuk dashboard
+const originalShowPage = window.showPage;
+window.showPage = function(name) {
+    originalShowPage(name);
+    if (name === 'dashboard') {
+        const dashContent = document.getElementById('dash-content');
+        if (dashContent) {
+            renderOverviewTab(dashContent);
+        }
+    }
+    if (name === 'interest') initQuiz();
+    if (name === 'campus') loadCampusTestimonials();
+};
+
+const projects=[
+  {id:1,title:'UI/UX Redesign Super App',company:'Gojek',logo:'Gojek.png',color:'linear-gradient(135deg,#00aa5b,#0098d1)',duration:'2 Bulan',tags:['Desain','Intermediate'],skills:['Figma','Prototyping','User Research'],desc:'Redesign ulang tampilan super app untuk meningkatkan user experience dan konversi pengguna baru. Kamu akan bekerja langsung dengan tim product designer Gojek.',req:['Mahasiswa aktif jurusan Desain/Informatika','Familiar dengan Figma atau Adobe XD','Portofolio minimal 1 project desain','Kemampuan komunikasi yang baik']},
+  {id:2,title:'Data Analytics Dashboard',company:'Tokopedia',logo:'Toko Pedia.png',color:'linear-gradient(135deg,#ff6633,#ff9500)',duration:'1.5 Bulan',tags:['Data','Intermediate'],skills:['Python','Tableau','SQL'],desc:'Bangun dashboard analytics real-time untuk monitoring performa seller di platform Tokopedia. Analisis big data transaksi dan visualisasikan dalam bentuk yang mudah dipahami.',req:['Menguasai Python dasar','Familiar dengan SQL','Pengetahuan statistik dasar','Mahasiswa aktif semester 4+']},
+  {id:3,title:'Digital Marketing Campaign',company:'Traveloka',logo:'Traveloka.png',color:'linear-gradient(135deg,#0057ff,#00b4ff)',duration:'1 Bulan',tags:['Marketing','Beginner'],skills:['Google Ads','SEO','Content Strategy'],desc:'Buat dan jalankan campaign digital marketing untuk produk wisata premium Traveloka. Targetkan millennials dengan strategi konten yang kreatif dan terukur.',req:['Tertarik dengan dunia digital marketing','Familiar dengan media sosial','Kemampuan menulis konten kreatif','Bisa menggunakan Canva']},
+  {id:4,title:'Backend API Development',company:'Bukalapak',logo:'Bukalapak.png',color:'linear-gradient(135deg,#e31e24,#ff6b35)',duration:'3 Bulan',tags:['Teknologi','Advanced'],skills:['Node.js','PostgreSQL','REST API'],desc:'Develop backend API untuk fitur baru marketplace Bukalapak. Bekerja dalam tim agile dengan standar kode production-ready yang tinggi.',req:['Menguasai JavaScript/Node.js','Pemahaman REST API','Pengalaman dengan database SQL','Familiar dengan Git']},
+  {id:5,title:'Content Creator Strategy',company:'Shopee',logo:'Shopee.png',color:'linear-gradient(135deg,#ee4d2d,#ff9300)',duration:'1 Bulan',tags:['Content','Beginner'],skills:['Copywriting','Video Editing','Social Media'],desc:'Kembangkan strategi konten untuk kanal media sosial Shopee Indonesia. Riset trend, buat konten viral, dan analisis engagement rate.',req:['Passion di bidang content creation','Familiar dengan TikTok/Instagram','Bisa video editing dasar','Kreativitas tinggi']},
+  {id:6,title:'Machine Learning Model',company:'GoPay',logo:'💰',color:'linear-gradient(135deg,#00aa5b,#007a3d)',duration:'2 Bulan',tags:['Data','Advanced'],skills:['Python','TensorFlow','ML'],desc:'Bangun model machine learning untuk deteksi fraud transaksi keuangan GoPay. Proyek ini berdampak langsung pada keamanan jutaan pengguna.',req:['Mahasiswa Informatika/Statistika','Menguasai Python & library ML','Pemahaman matematika statistik','Familiar dengan Jupyter Notebook']},
+];
+
+// Fungsi handle login
+// Fungsi handle login yang sudah diperbaiki
+function handleLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    
+    // Validasi sederhana
+    if (!email || !password) {
+        alert('⚠️ Email dan password harus diisi!');
+        return;
+    }
+    
+    // Ambil data users dari localStorage
+    const usersData = localStorage.getItem('visioner_users');
+    let users = [];
+    
+    if (usersData) {
+        users = JSON.parse(usersData);
+    }
+    
+    // Cari user berdasarkan email dan password
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        // Simpan session user yang login
+        localStorage.setItem('visioner_current_user', JSON.stringify(user));
+        alert(`✅ Selamat datang kembali, ${user.nama}!`);
+        closeModal();
+        showPage('dashboard');
+        updateDashboardWithUserData(user);
+    } else {
+        // Cek apakah email terdaftar
+        const emailExists = users.some(u => u.email === email);
+        if (emailExists) {
+            alert('❌ Password salah! Silakan coba lagi.');
+        } else {
+            alert('❌ Email belum terdaftar! Silakan daftar terlebih dahulu.');
+        }
+    }
+}
+
+// Fungsi handle registrasi yang sudah diperbaiki
+function handleRegister() {
+    // Ambil semua nilai dari form
+    const nama = document.getElementById('regNama').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const wa = document.getElementById('regWa').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('regConfirmPassword').value;
+    const universitas = document.getElementById('regUniversitas').value.trim();
+    const jurusan = document.getElementById('regJurusan').value.trim();
+    const semester = document.getElementById('regSemester').value;
+    const skill = document.getElementById('regSkill').value.trim();
+    const minat = document.getElementById('regMinat').value;
+    const terms = document.getElementById('regTerms').checked;
+    
+    // Validasi lengkap
+    let errors = [];
+    
+    if (!nama) errors.push('• Nama lengkap harus diisi');
+    if (!email) errors.push('• Email harus diisi');
+    if (!wa) errors.push('• Nomor WhatsApp harus diisi');
+    if (!password) errors.push('• Password harus diisi');
+    if (password.length < 8) errors.push('• Password minimal 8 karakter');
+    if (password !== confirmPassword) errors.push('• Konfirmasi password tidak sama');
+    if (!universitas) errors.push('• Asal universitas harus diisi');
+    if (!jurusan) errors.push('• Jurusan harus diisi');
+    if (!semester) errors.push('• Semester harus dipilih');
+    if (!skill) errors.push('• Skill yang dikuasai harus diisi');
+    if (!minat) errors.push('• Minat karir harus dipilih');
+    if (!terms) errors.push('• Harap menyetujui Syarat & Ketentuan');
+    
+    // Validasi format email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) errors.push('• Format email tidak valid');
+    
+    // Validasi format WhatsApp (minimal 10 digit, maksimal 13 digit)
+    const cleanWa = wa.replace(/\D/g, '');
+    if (wa && (cleanWa.length < 10 || cleanWa.length > 13)) errors.push('• Nomor WhatsApp tidak valid (10-13 digit)');
+    
+    // Tampilkan error jika ada
+    if (errors.length > 0) {
+        alert('❌ Mohon lengkapi data berikut:\n\n' + errors.join('\n'));
+        return;
+    }
+    
+    // Ambil data users yang sudah ada
+    const usersData = localStorage.getItem('visioner_users');
+    let users = [];
+    
+    if (usersData) {
+        users = JSON.parse(usersData);
+    }
+    
+    // Cek apakah email sudah terdaftar
+    if (users.some(u => u.email === email)) {
+        alert('❌ Email sudah terdaftar! Silakan login atau gunakan email lain.');
+        return;
+    }
+    
+    // Buat data user baru
+    const newUser = {
+        id: Date.now(),
+        nama: nama,
+        email: email,
+        wa: wa,
+        password: password,
+        universitas: universitas,
+        jurusan: jurusan,
+        semester: semester,
+        skill: skill.split(',').map(s => s.trim()).filter(s => s !== ''),
+        minat: minat,
+        bergabung: new Date().toISOString(),
+        poin: 0,
+        level: 1,
+        projectSelesai: 0,
+        rating: 0
+    };
+    
+    // Simpan ke localStorage
+    users.push(newUser);
+    localStorage.setItem('visioner_users', JSON.stringify(users));
+    localStorage.setItem('visioner_current_user', JSON.stringify(newUser));
+    
+    alert(`🎉 Selamat! Akun ${nama} berhasil dibuat.\n\n📧 Email: ${email}\n🏫 Universitas: ${universitas}\n🎯 Minat: ${minat}\n\nSilakan lengkapi profilmu di dashboard!`);
+    
+    // Reset form registrasi
+    document.getElementById('regNama').value = '';
+    document.getElementById('regEmail').value = '';
+    document.getElementById('regWa').value = '';
+    document.getElementById('regPassword').value = '';
+    document.getElementById('regConfirmPassword').value = '';
+    document.getElementById('regUniversitas').value = '';
+    document.getElementById('regJurusan').value = '';
+    document.getElementById('regSemester').value = '';
+    document.getElementById('regSkill').value = '';
+    document.getElementById('regMinat').value = '';
+    document.getElementById('regTerms').checked = false;
+    
+    closeModal();
+    showPage('dashboard');
+    updateDashboardWithUserData(newUser);
+}
+
+// Fungsi update dashboard dengan data user
+function updateDashboardWithUserData(user) {
+    if (!user) return;
+    
+    // Update welcome card di dashboard
+    const welcomeCard = document.querySelector('.welcome-card');
+    if (welcomeCard) {
+        const initial = user.nama.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+        welcomeCard.innerHTML = `
+            <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+                <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;flex-shrink:0">${initial}</div>
+                <div>
+                    <h2>Selamat datang, ${user.nama.split(' ')[0]}! 👋</h2>
+                    <p>${user.universitas} · ${user.jurusan} · Semester ${user.semester}</p>
+                </div>
+            </div>
+            <div style="display:flex;gap:20px;margin-top:20px;flex-wrap:wrap">
+                <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;text-align:center"><div style="font-size:20px;font-weight:800">${user.skill.length}</div><div style="font-size:11px;opacity:0.8">Skills</div></div>
+                <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;text-align:center"><div style="font-size:20px;font-weight:800">Level ${user.level}</div><div style="font-size:11px;opacity:0.8">Rank Kamu</div></div>
+                <div style="background:rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;text-align:center"><div style="font-size:20px;font-weight:800">${user.poin}</div><div style="font-size:11px;opacity:0.8">Total Poin</div></div>
+            </div>
+        `;
+    }
+    
+    // Update stat di dashboard
+    const dashStats = document.querySelectorAll('.dash-stat-num');
+    if (dashStats.length >= 4) {
+        // Biarkan stat tetap atau update sesuai data user
+    }
+}
+
+// Cek session saat halaman dimuat
+function checkSession() {
+    const currentUser = localStorage.getItem('visioner_current_user');
+    if (currentUser) {
+        const user = JSON.parse(currentUser);
+        updateDashboardWithUserData(user);
+    }
+}
+
+// Fungsi logout
+function logout() {
+    localStorage.removeItem('visioner_current_user');
+    alert('👋 Anda telah logout. Sampai jumpa kembali!');
+    showPage('home');
+}
+
+// Panggil checkSession saat halaman load
+document.addEventListener('DOMContentLoaded', function() {
+    checkSession();
+    
+    // Tambahkan tombol logout di sidebar jika diperlukan
+    const logoutBtn = document.querySelector('.sidebar-item[style*="color:#dc2626"]');
+    if (logoutBtn) {
+        logoutBtn.onclick = function() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                logout();
+            }
+        };
+    }
+});
+
+function renderProjects(containerId,limit){
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  const data=limit?projects.slice(0,limit):projects;
+  container.innerHTML=data.map(p=>`
+    <div class="project-card" onclick="showDetail(${p.id})">
+      <div class="company-row">
+        <div class="company-logo" style="background:${p.color}; display:flex; align-items:center; justify-content:center">
+        <img src="${p.logo}" alt="${p.company}" style="width:44px; height:44px; object-fit:contain; border-radius:8px">
+        </div>
+        <div class="company-name">${p.company}</div>
+      </div>
+      <div class="project-title">${p.title}</div>
+      <div class="project-meta">
+        ${p.tags.map((t,i)=>`<span class="tag ${i===0?'tag-blue':'tag-purple'}">${t}</span>`).join('')}
+        <span class="tag tag-green">⏱ ${p.duration}</span>
+      </div>
+      <div class="skills-row">
+        ${p.skills.map(s=>`<span class="skill-pill">${s}</span>`).join('')}
+      </div>
+      <div class="card-footer">
+        <span style="font-size:12px;color:var(--text-muted)">12 pendaftar</span>
+        <button class="apply-mini" onclick="event.stopPropagation();openModal('register')">Apply →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function showDetail(id){
+  const p=projects.find(x=>x.id===id);
+  if(!p)return;
+  document.getElementById('detail-logo').textContent=p.logo;
+  document.getElementById('detail-company').textContent=p.company;
+  document.getElementById('detail-title').textContent=p.title;
+  document.getElementById('detail-duration').textContent=p.duration;
+  document.getElementById('detail-desc').textContent=p.desc;
+  document.getElementById('detail-tags').innerHTML=p.tags.map((t,i)=>`<span class="tag ${i===0?'tag-blue':'tag-purple'}" style="padding:6px 14px;font-size:13px">${t}</span>`).join('')+`<span class="tag tag-green" style="padding:6px 14px;font-size:13px">⏱ ${p.duration}</span>`;
+  document.getElementById('detail-req').innerHTML=p.req.map(r=>`<li><div class="req-check">✓</div><span>${r}</span></li>`).join('');
+  showPage('detail');
+}
+
+function showPage(name){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page-'+name).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+    if(name==='home') renderProjects('home-projects',3);
+    if(name==='explore') renderProjects('explore-projects');
+    if(name==='interest') initQuiz();
+}
+
+function openModal(type){
+  document.getElementById('modal-overlay').classList.add('open');
+  switchModal(type);
+}
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+function switchModal(type){
+  document.getElementById('modal-login').style.display=type==='login'?'block':'none';
+  document.getElementById('modal-register').style.display=type==='register'?'block':'none';
+}
+
+document.getElementById('modal-overlay').addEventListener('click',function(e){
+  if(e.target===this)closeModal();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    this.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.sidebar-item').forEach(item=>{
+  item.addEventListener('click',function(){
+    this.closest('.sidebar-nav').querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+renderProjects('home-projects',3);
+
+// INTEREST QUIZ DATA
+const quizQuestions = [
+    {
+        text: "Aktivitas apa yang paling kamu sukai di waktu luang?",
+        options: [
+            { value: "creative", text: "🎨 Mendesain & menggambar" },
+            { value: "analytical", text: "📊 Menganalisis data & angka" },
+            { value: "social", text: "💬 Berinteraksi dengan orang" },
+            { value: "technical", text: "💻 Coding & ngoprek komputer" },
+            { value: "strategic", text: "📈 Merencanakan strategi" }
+        ]
+    },
+    {
+        text: "Bagaimana gaya belajarmu yang paling efektif?",
+        options: [
+            { value: "visual", text: "👁️ Visual (melihat gambar/video)" },
+            { value: "auditory", text: "👂 Auditori (mendengarkan)" },
+            { value: "kinesthetic", text: "✍️ Praktik langsung" },
+            { value: "reading", text: "📖 Membaca & menulis" }
+        ]
+    },
+    {
+        text: "Dalam bekerja, kamu lebih suka...",
+        options: [
+            { value: "team", text: "👥 Bekerja dalam tim" },
+            { value: "individual", text: "🧑‍💻 Bekerja sendiri" },
+            { value: "hybrid", text: "🤝 Kombinasi keduanya" }
+        ]
+    },
+    {
+        text: "Tipe masalah apa yang paling menarik bagimu?",
+        options: [
+            { value: "creative", text: "🎨 Masalah desain & kreativitas" },
+            { value: "analytical", text: "🔢 Masalah logika & angka" },
+            { value: "social", text: "🤝 Masalah interpersonal" },
+            { value: "technical", text: "⚙️ Masalah teknis & sistem" }
+        ]
+    },
+    {
+        text: "Apa tujuan karirmu dalam 5 tahun ke depan?",
+        options: [
+            { value: "expert", text: "🏆 Menjadi expert di bidang tertentu" },
+            { value: "leader", text: "👔 Menjadi pemimpin tim" },
+            { value: "entrepreneur", text: "🚀 Membuka bisnis sendiri" },
+            { value: "balanced", text: "⚖️ Work-life balance" }
+        ]
+    }
+];
+
+// Recommendation Data
+const recommendations = {
+    creative: {
+        title: "UI/UX Designer & Creative Director",
+        icon: "🎨",
+        color: "#8b5cf6",
+        companies: ["Tokopedia", "Gojek", "Shopee", "Traveloka"],
+        jobdesc: "Merancang antarmuka pengguna yang menarik dan pengalaman digital yang luar biasa. Bekerja sama dengan tim product untuk menciptakan produk yang estetik dan fungsional.",
+        skills: ["Figma", "Adobe XD", "User Research", "Prototyping", "Design System"]
+    },
+    analytical: {
+        title: "Data Analyst & Business Intelligence",
+        icon: "📊",
+        color: "#3b82f6",
+        companies: ["Gojek", "Bukalapak", "Traveloka", "Bank Mandiri"],
+        jobdesc: "Mengolah dan menganalisis data untuk memberikan insight bisnis yang berharga. Membantu perusahaan mengambil keputusan berdasarkan data.",
+        skills: ["SQL", "Python", "Tableau", "Statistics", "Excel"]
+    },
+    technical: {
+        title: "Software Engineer & Backend Developer",
+        icon: "💻",
+        color: "#10b981",
+        companies: ["Gojek", "Tokopedia", "Shopee", "Traveloka"],
+        jobdesc: "Membangun dan mengembangkan aplikasi skala besar. Menulis kode yang efisien dan scalable untuk jutaan pengguna.",
+        skills: ["JavaScript", "Python/Java", "Database", "API", "Cloud"]
+    },
+    social: {
+        title: "HR & People Development",
+        icon: "💬",
+        color: "#f59e0b",
+        companies: ["Unilever", "Gojek", "Tokopedia", "Bank BCA"],
+        jobdesc: "Mengelola sumber daya manusia dan pengembangan karyawan. Menciptakan lingkungan kerja yang positif dan produktif.",
+        skills: ["Komunikasi", "Recruitment", "Training", "Psychology", "Leadership"]
+    },
+    strategic: {
+        title: "Business & Product Manager",
+        icon: "📈",
+        color: "#ef4444",
+        companies: ["Gojek", "Tokopedia", "Traveloka", "Shopee"],
+        jobdesc: "Mengelola produk dan strategi bisnis. Menentukan roadmap produk dan memastikan alignment dengan tujuan perusahaan.",
+        skills: ["Product Management", "Agile/Scrum", "Market Research", "Analytics", "Leadership"]
+    }
+};
+
+let currentQuestion = 0;
+let userAnswers = [];
+
+function initQuiz() {
+    currentQuestion = 0;
+    userAnswers = [];
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('question-container').style.display = 'block';
+    document.querySelector('.interest-container').style.display = 'block';
+    renderQuestion();
+    updateProgress();
+}
+
+function renderQuestion() {
+    const container = document.getElementById('question-container');
+    const q = quizQuestions[currentQuestion];
+    
+    container.innerHTML = `
+        <div class="question-card">
+            <div class="question-text">${q.text}</div>
+            <div class="options-grid">
+                ${q.options.map((opt, idx) => `
+                    <div class="option-btn" onclick="selectOption(this, '${opt.value}')">
+                        ${opt.text}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Highlight selected option if exists
+    if (userAnswers[currentQuestion]) {
+        const btns = document.querySelectorAll('.option-btn');
+        btns.forEach(btn => {
+            if (btn.textContent.includes(userAnswers[currentQuestion].replace(/[^a-zA-Z]/g, ''))) {
+                btn.classList.add('selected');
+            }
+        });
+    }
+    
+    // Update buttons visibility
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    prevBtn.style.display = currentQuestion === 0 ? 'none' : 'block';
+    
+    if (currentQuestion === quizQuestions.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'block';
+    } else {
+        nextBtn.style.display = 'block';
+        submitBtn.style.display = 'none';
+    }
+}
+
+function selectOption(element, value) {
+    // Remove selected class from siblings
+    const parent = element.parentElement;
+    const btns = parent.querySelectorAll('.option-btn');
+    btns.forEach(btn => btn.classList.remove('selected'));
+    element.classList.add('selected');
+    
+    // Save answer
+    userAnswers[currentQuestion] = value;
+}
+
+function nextQuestion() {
+    if (!userAnswers[currentQuestion]) {
+        alert('Silakan pilih jawaban terlebih dahulu!');
+        return;
+    }
+    
+    if (currentQuestion < quizQuestions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+        updateProgress();
+    }
+}
+
+function prevQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+        updateProgress();
+    }
+}
+
+function updateProgress() {
+    // Update step indicators
+    const steps = document.querySelectorAll('.step-indicator');
+    steps.forEach((step, idx) => {
+        if (idx < currentQuestion) {
+            step.classList.add('completed');
+            step.classList.remove('active');
+        } else if (idx === currentQuestion) {
+            step.classList.add('active');
+            step.classList.remove('completed');
+        } else {
+            step.classList.remove('active', 'completed');
+        }
+    });
+    
+    // Update progress bar
+    const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+    document.getElementById('progress-fill-line').style.width = `${progress}%`;
+}
+
+function showRecommendation() {
+    if (!userAnswers[currentQuestion]) {
+        alert('Silakan pilih jawaban terakhir terlebih dahulu!');
+        return;
+    }
+    
+    // Analyze answers
+    const answerCount = {};
+    userAnswers.forEach(answer => {
+        answerCount[answer] = (answerCount[answer] || 0) + 1;
+    });
+    
+    // Find most frequent answer type
+    let maxType = 'creative';
+    let maxCount = 0;
+    for (const [type, count] of Object.entries(answerCount)) {
+        if (count > maxCount) {
+            maxCount = count;
+            maxType = type;
+        }
+    }
+    
+    // Get recommendation
+    const rec = recommendations[maxType] || recommendations.creative;
+    
+    // Display results
+    document.getElementById('question-container').style.display = 'none';
+    document.querySelector('.interest-container').style.display = 'none';
+    document.getElementById('result-section').style.display = 'block';
+    
+    const resultGrid = document.getElementById('result-grid');
+    resultGrid.innerHTML = `
+        <div class="result-card">
+            <div class="result-card-icon" style="background:${rec.color}20; color:${rec.color}">
+                ${rec.icon}
+            </div>
+            <div class="result-card-title">🎯 Rekomendasi Karir</div>
+            <div style="font-size:18px; font-weight:700; margin-bottom:12px">${rec.title}</div>
+            <div class="result-card-desc">${rec.jobdesc}</div>
+        </div>
+        
+        <div class="result-card">
+            <div class="result-card-icon" style="background:#3b82f620; color:#3b82f6">
+                🏢
+            </div>
+            <div class="result-card-title">Perusahaan yang Cocok</div>
+            <div class="skills-tag">
+                ${rec.companies.map(c => `<span class="skill-tag">${c}</span>`).join('')}
+            </div>
+            <div class="result-card-desc" style="margin-top:16px">
+                Perusahaan-perusahaan ini aktif mencari talent dengan profil sepertimu!
+            </div>
+        </div>
+        
+        <div class="result-card">
+            <div class="result-card-icon" style="background:#10b98120; color:#10b981">
+                ⚡
+            </div>
+            <div class="result-card-title">Skill yang Perlu Dikembangkan</div>
+            <div class="skills-tag">
+                ${rec.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+            </div>
+            <div class="result-card-desc" style="margin-top:16px">
+                Kembangkan skill ini untuk meningkatkan peluang karirmu!
+            </div>
+        </div>
+    `;
+    
+    // Scroll to top
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function resetQuiz() {
+    currentQuestion = 0;
+    userAnswers = [];
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('question-container').style.display = 'block';
+    document.querySelector('.interest-container').style.display = 'block';
+    renderQuestion();
+    updateProgress();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// CAMPUS PAGE FUNCTIONS
+const campusTestimonials = [
+    {
+        name: "Andhika Pratama",
+        university: "Universitas Pasundan",
+        role: "Frontend Developer at Tokopedia",
+        text: "Program ini benar-benar mengubah hidup saya. Dari yang bingung mau kerja jadi apa, sekarang saya sudah bekerja di perusahaan impian!",
+        rating: 5,
+        avatar: "AP",
+        color: "#3b82f6"
+    },
+    {
+        name: "Siti Nurhaliza",
+        university: "Universitas Airlangga",
+        role: "Data Analyst at Gojek",
+        text: "Mentornya sangat membantu, project-based internship-nya beneran project nyata! Portfolio saya jadi kaya raya setelah ikut program ini.",
+        rating: 5,
+        avatar: "SN",
+        color: "#8b5cf6"
+    },
+    {
+        name: "Budi Santoso",
+        university: "Universitas Bung Hatta",
+        role: "Backend Engineer at Shopee",
+        text: "3x internship di perusahaan ternama bikin CV saya dilirik banyak HRD. Guarantee job-nya real, terbukti!",
+        rating: 5,
+        avatar: "BS",
+        color: "#10b981"
+    }
+];
+
+let currentTestimonials = 3;
+
+function loadCampusTestimonials() {
+    const container = document.getElementById('campus-testimonials');
+    if (container) {
+        container.innerHTML = campusTestimonials.map(t => `
+            <div class="testimonial-campus-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar" style="background:${t.color}">${t.avatar}</div>
+                    <div class="testimonial-info">
+                        <h4>${t.name}</h4>
+                        <p>${t.university}</p>
+                        <p style="font-size:10px; color:#64748b">${t.role}</p>
+                    </div>
+                </div>
+                <div class="testimonial-stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div>
+                <p class="testimonial-text">"${t.text}"</p>
+            </div>
+        `).join('');
+    }
+}
+
+function loadMoreTestimonials() {
+    const moreTestimonials = [
+        {
+            name: "Dewi Anggraini",
+            university: "Universitas Muhammadiyah Lamongan",
+            role: "UI/UX Designer at Traveloka",
+            text: "Program yang sangat recommended! Dari nol sampai bisa bikin portfolio keren dan langsung dapat kerja.",
+            rating: 5,
+            avatar: "DA",
+            color: "#ef4444"
+        },
+        {
+            name: "Rizki Ramadhan",
+            university: "Universitas Nusa Mandiri",
+            role: "Product Manager at Bukalapak",
+            text: "Best decision ever! Ikut program ini adalah investasi terbaik untuk karir saya.",
+            rating: 5,
+            avatar: "RR",
+            color: "#f59e0b"
+        }
+    ];
+    
+    const container = document.getElementById('campus-testimonials');
+    moreTestimonials.forEach(t => {
+        container.innerHTML += `
+            <div class="testimonial-campus-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar" style="background:${t.color}">${t.avatar}</div>
+                    <div class="testimonial-info">
+                        <h4>${t.name}</h4>
+                        <p>${t.university}</p>
+                        <p style="font-size:10px; color:#64748b">${t.role}</p>
+                    </div>
+                </div>
+                <div class="testimonial-stars">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</div>
+                <p class="testimonial-text">"${t.text}"</p>
+            </div>
+        `;
+    });
+    
+    const btn = document.querySelector('.btn-load-more');
+    if (btn) btn.style.display = 'none';
+}
+
+function toggleFaq(element) {
+    const faqItem = element.closest('.faq-item');
+    faqItem.classList.toggle('active');
+}
+
+function showDetailProgram(programId) {
+    const details = {
+        1: "✨ Fasilitas Jaminan 3X Project-Based Internship:\n\n• Magang di perusahaan ternama (Gojek, Tokopedia, Traveloka, dll)\n• Project riil yang bisa dimasukkan ke portofolio\n• Dapat sertifikat dari perusahaan mitra\n• Bimbingan dari mentor profesional",
+        2: "✨ Fasilitas Persiapan dan Bimbingan Karier:\n\n• Kelas persiapan karir (CV, LinkedIn, personal branding)\n• Simulasi interview dengan HR profesional\n• Career counseling dengan praktisi HR\n• Workshop public speaking & communication skill",
+        3: "✨ Fasilitas Penyaluran Kerja:\n\n• Job connector dengan 150+ hiring partners\n• Monitoring proses rekrutmen\n• Rekomendasi pekerjaan yang sesuai dengan skill\n• Bantuan negosiasi gaji dan benefit"
+    };
+    alert(details[programId]);
+}
+
+function openModalCampus() {
+    const modalHtml = `
+        <div class="modal-campus-overlay" id="modal-campus-overlay" onclick="if(event.target===this) closeModalCampus()">
+            <div class="modal-campus">
+                <button class="modal-close" onclick="closeModalCampus()">✕</button>
+                <h2 style="font-size:24px; font-weight:800; margin-bottom:8px">🤝 Hubungi Kami</h2>
+                <p style="margin-bottom:24px">Isi form berikut untuk info lebih lanjut tentang Job Acceleration Program</p>
+                <div class="form-group"><label>Nama Lengkap</label><input type="text" placeholder="Nama kamu"></div>
+                <div class="form-group"><label>Email</label><input type="email" placeholder="email@kampus.ac.id"></div>
+                <div class="form-group"><label>Asal Kampus</label><input type="text" placeholder="Nama kampus"></div>
+                <div class="form-group"><label>Jabatan</label><select style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--border)">
+                    <option>Mahasiswa</option>
+                    <option>Dosen</option>
+                    <option>Pihak Kampus/Lembaga</option>
+                    <option>Lainnya</option>
+                </select></div>
+                <button class="btn-full" onclick="closeModalCampus(); alert('Terima kasih! Tim kami akan segera menghubungi Anda.')">Kirim Pesan →</button>
+            </div>
+        </div>
+    `;
+    
+    if (!document.getElementById('modal-campus-overlay')) {
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
+    document.getElementById('modal-campus-overlay').style.display = 'flex';
+}
+
+function closeModalCampus() {
+    const modal = document.getElementById('modal-campus-overlay');
+    if (modal) modal.style.display = 'none';
+}
+
+function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Update showPage function
+// Simpan fungsi showPage yang sudah ada
+const originalShowPage2 = window.showPage;
+window.showPage = function(name) {
+    if (originalShowPage2) originalShowPage2(name);
+    if (name === 'campus') {
+        loadCampusTestimonials();
+    }
+    if (name === 'interest') initQuiz();
+    if (name === 'dashboard') {
+        const dashContent = document.getElementById('dash-content');
+        if (dashContent) {
+            renderOverviewTab(dashContent);
+        }
+    }
+};
+
+</script>
+</body>
+</html>
